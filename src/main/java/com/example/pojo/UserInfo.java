@@ -3,12 +3,10 @@ package com.example.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminInfo {
+public class UserInfo {
 
   private long id;
   private String name;
@@ -19,13 +17,7 @@ public class AdminInfo {
   private String birthday;
   private String phone;
   private String address;
-  private String code;
   private String email;
   private String cardId;
   private long level;
-  private String account;
-
-
-
-
 }
