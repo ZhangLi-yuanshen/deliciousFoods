@@ -9,6 +9,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/NewsInfo")
 public class lspNewsInfoController {
 
-    @Autowired
-    private lspNewsInfoService lspNewsInfoService;
 }
