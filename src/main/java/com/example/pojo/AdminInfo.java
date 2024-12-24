@@ -4,10 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Table;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "admin_info")
 public class AdminInfo {
 
   private long id;
