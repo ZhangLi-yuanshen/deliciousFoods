@@ -1,10 +1,12 @@
 package com.example.mapper;
 
 import com.example.pojo.NewsInfo;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface NewsInfoMapper {
     /**
      * 统计总记录数
