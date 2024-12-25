@@ -4,4 +4,36 @@
     <select id="findAll" resultType="com.example.pojo.NewsInfo">
         select * from newsinfo * from newsinfo
     </select>
+    <resultMap id="BaseResultMap" type="com.example.pojo.NewsInfo">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,course_code,course_name,
+        credits,start_time,end_time,
+        teacher_name,teacher_phone,max_students,
+        current_students
+    </sql>
+    <select id="selectTotal" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM course
+    </select>
+
+    <select id="selectStudentList" resultType="com.example.pojo.NewsInfo" resultMap="BaseResultMap">
+        SELECT * FROM course
+                          LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <!-- 公共的WHERE条件 -->
+    <sql id="whereClause">
+        <where>
+            <if test="classNo != null and classNo != ''">
+                AND s.classno = #{classNo}
+            </if>
+            <if test="name != null and name != ''">
+                AND s.sname LIKE CONCAT('%', #{name}, '%')
+            </if>
+        </where>
+    </sql>
 </mapper>
