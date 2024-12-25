@@ -13,6 +13,8 @@ import java.util.List;
 @Repository
 public interface NewsInfoDao extends Mapper<NewsInfo> {
     //获取所有饮食咨询
-    List<NewsInfoVo> findAll(@Param("name")String name);
+    List<NewsInfoVo> findAll(@Param("name") String name);
+    
+
 
 }
