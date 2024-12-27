@@ -3,7 +3,6 @@ package com.example.controller;
 
 
 import com.example.common.Result;
-import com.example.pojo.NewsInfo;
 import com.example.service.NewsInfoService;
 import com.example.vo.NewsInfoVo;
 import com.github.pagehelper.PageInfo;
@@ -21,11 +20,11 @@ public class NewsInfoController {
     private NewsInfoService newsInfoService;
     @GetMapping
     public Result<List<NewsInfoVo>> all(){return Result.success(newsInfoService.findAll());}
-//    @GetMapping("/page/{name}")
-//    public Result<PageInfo<NewsInfoVo>> page(@PathVariable String name,
-//                                             @RequestParam(defaultValue = "1") Integer pageNum,
-//                                             @RequestParam(defaultValue = "5") Integer pageSize,
-//                                             HttpServletRequest request) {
-//        return Result.success(newsInfoService.findPage(name, pageNum, pageSize, request));
-//    }
+    @GetMapping("/page/{name}")
+    public Result<PageInfo<NewsInfoVo>> page(@PathVariable String name,
+                                             @RequestParam(defaultValue = "1") Integer pageNum,
+                                             @RequestParam(defaultValue = "5") Integer pageSize,
+                                             HttpServletRequest request) {
+        return Result.success(newsInfoService.findPage(name, pageNum, pageSize, request));
+    }
 }
