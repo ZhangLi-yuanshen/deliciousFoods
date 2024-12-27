@@ -9,5 +9,6 @@ public interface NewsInfoService {
     /**
      * 分页查询相关数据
      */
-    PageResult<NewsInfo> selectNewsInfoList(QueryRequest queryRequest);
+
+    PageResult<NewsInfo> selectNewsInfoList(QueryRequest queryRequest, String Name, Integer PageNum, Integer PageSize);
 }

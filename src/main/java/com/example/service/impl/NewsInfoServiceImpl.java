@@ -24,8 +24,10 @@ public class NewsInfoServiceImpl implements NewsInfoService {
     @Resource
     private NewsInfoMapper newsinfoMapper;
 
+
+
     @Override
-    public PageResult<NewsInfo> selectNewsInfoList(QueryRequest queryRequest) {
+    public PageResult<NewsInfo> selectNewsInfoList(QueryRequest queryRequest, String Name, Integer PageNum, Integer PageSize) {
         // 计算偏移量(起始索引) （查询页码-1）*每页显示记录数。
         int offset = (queryRequest.getPageNum() - 1) * queryRequest.getPageSize();
         //查询总记录数

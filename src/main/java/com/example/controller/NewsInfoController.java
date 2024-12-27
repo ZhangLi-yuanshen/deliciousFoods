@@ -21,8 +21,11 @@ public class NewsInfoController {
     private NewsInfoServiceImpl newsInfoService;
     // 获取所有新闻资讯（分页）
     @GetMapping("/page/{name}")
-    public ResponseUtils list(@RequestBody QueryRequest queryRequest){
-        PageResult<NewsInfo> newsInfoPageResult = newsInfoService.selectNewsInfoList(queryRequest);
+    public ResponseUtils list(@RequestBody QueryRequest queryRequest
+                            , @PathVariable String name
+                            , @RequestParam (defaultValue = "1") Integer pageNum
+                            , @RequestParam (defaultValue = "5") Integer pageSize){
+        PageResult<NewsInfo> newsInfoPageResult = newsInfoService.selectNewsInfoList(queryRequest,name,pageNum,pageSize);
         return new ResponseUtils(200,"success",newsInfoPageResult);
     }
     //查询所有咨询信息
