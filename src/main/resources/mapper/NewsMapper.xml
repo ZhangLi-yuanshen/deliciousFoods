@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dao.NewsInfoDao">
     <select id="findAll" resultType="com.example.pojo.NewsInfo">
-        select * from newsinfo * from newsinfo
+        select * from news_info
     </select>
     <resultMap id="BaseResultMap" type="com.example.pojo.NewsInfo">
         <id property="id" column="id" jdbcType="BIGINT"/>
