@@ -19,15 +19,19 @@
         SELECT COUNT(*)
         FROM course
     </select>
-
+<!--    分页查询-->
     <select id="selectStudentList" resultType="com.example.pojo.NewsInfo" resultMap="BaseResultMap">
         SELECT * FROM course
                           LIMIT #{offset}, #{pageSize}
     </select>
-
+<!--新增咨询信息-->
     <insert id="insert" parameterType="com.example.pojo.NewsInfo">
         INSERT INTO news_info (name, content)
     </insert>
+<!--    删除信息-->
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM news_info WHERE id = #{id}
+    </delete>
     <!-- 公共的WHERE条件 -->
     <sql id="whereClause">
         <where>

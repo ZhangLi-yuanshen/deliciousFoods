@@ -16,7 +16,8 @@ public interface NewsInfoDao extends Mapper<NewsInfo> {
     List<NewsInfoVo> findAll(@Param("name") String name);
     //新增饮食咨询
     int insert(NewsInfo newsInfo);
-    
+    //删除饮食咨询
+    int delete(@Param("id") Integer id);
 
 
 }

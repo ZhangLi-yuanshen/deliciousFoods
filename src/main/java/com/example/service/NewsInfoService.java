@@ -14,4 +14,6 @@ public interface NewsInfoService {
     List<NewsInfoVo> findAllPage(HttpServletRequest request, String name);
     //新增饮食咨询
     int insert(NewsInfo newsInfo);
+    //删除饮食咨询信息
+    int delete(Integer id);
 }

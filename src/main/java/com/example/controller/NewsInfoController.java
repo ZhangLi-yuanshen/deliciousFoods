@@ -34,4 +34,6 @@ public class NewsInfoController {
     public Result<Integer> insert(NewsInfo newsInfo){
         return Result.success(newsInfoService.insert(newsInfo));
     }
+    //删除咨询
+
 }

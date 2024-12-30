@@ -39,6 +39,11 @@ public class NewsInfoServiceImpl implements NewsInfoService {
         // 插入信息
         return newsInfoDao.insert(newsInfo);
     }
+    //删除饮食咨询
+    @Override
+    public int delete(Integer id) {
+        return newsInfoDao.delete(id);
+    }
 
 
 }
