@@ -14,6 +14,8 @@ import java.util.List;
 public interface NewsInfoDao extends Mapper<NewsInfo> {
     //获取所有饮食咨询
     List<NewsInfoVo> findAll(@Param("name") String name);
+    //新增饮食咨询
+    int insert(NewsInfo newsInfo);
     
 
 

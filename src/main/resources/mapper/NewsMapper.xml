@@ -25,6 +25,9 @@
                           LIMIT #{offset}, #{pageSize}
     </select>
 
+    <insert id="insert" parameterType="com.example.pojo.NewsInfo">
+        INSERT INTO news_info (name, content)
+    </insert>
     <!-- 公共的WHERE条件 -->
     <sql id="whereClause">
         <where>

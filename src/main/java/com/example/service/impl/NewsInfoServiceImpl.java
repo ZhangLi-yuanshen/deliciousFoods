@@ -2,6 +2,7 @@ package com.example.service.impl;
 
 
 import com.example.dao.NewsInfoDao;
+import com.example.pojo.NewsInfo;
 import com.example.service.NewsInfoService;
 import com.example.vo.NewsInfoVo;
 import com.github.pagehelper.PageHelper;
@@ -32,7 +33,12 @@ public class NewsInfoServiceImpl implements NewsInfoService {
         return newsInfoDao.findAll(name);
     }
 
-
+    //新增饮食咨询
+    @Override
+    public int insert(NewsInfo newsInfo) {
+        // 插入信息
+        return newsInfoDao.insert(newsInfo);
+    }
 
 
 }
