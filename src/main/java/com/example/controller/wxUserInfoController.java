@@ -6,4 +6,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/UserInfo")
 public class wxUserInfoController {
 
+
 }
