@@ -36,7 +36,6 @@ public class NewsInfoServiceImpl implements NewsInfoService {
     //新增饮食咨询
     @Override
     public int insert(NewsInfo newsInfo) {
-        // 插入信息
         return newsInfoDao.insert(newsInfo);
     }
     //删除饮食咨询

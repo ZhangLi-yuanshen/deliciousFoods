@@ -1,7 +1,13 @@
 package com.example.vo;
 
-import com.example.pojo.NewsInfo;
-
-public class NewsInfoVo extends NewsInfo {
-
+public class NewsInfoVo {
+    private Long id;
+    private String title;
+    private String content;
+    // 构造函数
+    public NewsInfoVo(Long id, String title, String content) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+    }
 }
