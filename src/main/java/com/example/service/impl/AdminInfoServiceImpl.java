@@ -30,4 +30,50 @@ public class AdminInfoServiceImpl implements AdminInfoServiceTest {
     public List<AdminVo> findAllPage(HttpServletRequest request, String name) {
         return adminInfoDao.findByName(name);
     }
+//删除功能
+    @Override
+    public int delete(Integer id) {
+        try {
+            int result = adminInfoDao.delete(id);
+            if (result > 0){
+                //删除成功
+                return 1;
+            }else {
+                return 0;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+//修改
+    @Override
+    public int update(AdminVo adminvo) {
+        try {
+            int result = adminInfoDao.update(adminvo);
+            if (result > 0){
+                //操作成功 result > 0
+                return 1;
+            }else {
+                return 0;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    //添加
+    //
+    @Override
+    public int add(AdminVo adminvo) {
+        try {
+            int result = adminInfoDao.add(adminvo);
+            if (result > 0) {
+                //操作成功 result > 0
+                return 1;
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
