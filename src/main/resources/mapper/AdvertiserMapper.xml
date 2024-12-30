@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dao.AdvertiserInfoDao">
-    <select id="findAll" resultType="com.example.pojo.AdvertiserInfo">
+    <select id="findAll" resultType="com.example.vo.AdvertiserInfoVo">
         select * from advertiser_Info
     </select>
-    <resultMap id="BaseResultMap" type="com.example.pojo.AdvertiserInfo">
+    <resultMap id="BaseResultMap" type="com.example.vo.AdvertiserInfoVo">
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="content" column="content" jdbcType="VARCHAR"/>
@@ -15,18 +15,10 @@
         FROM course
     </select>
     <!--    分页查询-->
-    <select id="selectStudentList" resultType="com.example.pojo.AdvertiserInfo" resultMap="BaseResultMap">
+    <select id="selectStudentList" resultType="com.example.vo.AdvertiserInfoVo" resultMap="BaseResultMap">
         SELECT * FROM course
                           LIMIT #{offset}, #{pageSize}
     </select>
-    <!--新增公告信息-->
-    <insert id="insert" parameterType="com.example.pojo.NewsInfo">
-        INSERT INTO news_info (name, content)
-    </insert>
-    <!--    删除公告信息-->
-    <delete id="delete" parameterType="java.lang.Long">
-        DELETE FROM news_info WHERE id = #{id}
-    </delete>
     <!-- 公共的WHERE条件 -->
     <sql id="whereClause">
         <where>

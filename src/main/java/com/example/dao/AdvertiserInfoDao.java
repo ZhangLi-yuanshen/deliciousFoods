@@ -2,7 +2,6 @@ package com.example.dao;
 
 import com.example.pojo.AdvertiserInfo;
 import com.example.vo.AdvertiserInfoVo;
-import com.example.vo.NewsInfoVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;

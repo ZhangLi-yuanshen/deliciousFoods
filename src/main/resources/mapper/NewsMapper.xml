@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dao.NewsInfoDao">
-    <select id="findAll" resultType="com.example.pojo.NewsInfo">
+    <select id="findAll" resultType="com.example.vo.NewsInfoVo">
         select * from news_info
     </select>
-    <resultMap id="BaseResultMap" type="com.example.pojo.NewsInfo">
+    <resultMap id="BaseResultMap" type="com.example.vo.NewsInfoVo">
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="content" column="content" jdbcType="VARCHAR"/>
@@ -20,12 +20,13 @@
         FROM course
     </select>
 <!--    分页查询-->
-    <select id="selectStudentList" resultType="com.example.pojo.NewsInfo" resultMap="BaseResultMap">
+    <select id="selectStudentList" resultType="com.example.vo.NewsInfoVo" resultMap="BaseResultMap">
         SELECT * FROM course
                           LIMIT #{offset}, #{pageSize}
     </select>
+
 <!--新增咨询信息-->
-    <insert id="insert" parameterType="com.example.pojo.NewsInfo">
+    <insert id="insert" parameterType="com.example.vo.NewsInfoVo">
         INSERT INTO news_info (name, content)
     </insert>
 <!--    删除信息-->
