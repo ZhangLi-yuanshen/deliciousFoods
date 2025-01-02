@@ -24,239 +24,208 @@
 
 </head>
 <body>
-<div id="wrapper" v-cloak>
+<div id="wrapper">
     <div class="container">
         <!-- 头部开始 -->
         <div class="nx-header">
             <div style="display: flex;width: 100%; height: 30px; line-height: 30px; background-color: #eee;">
-
                 <div style="flex: 5; text-align: right">
-                    <span v-if="user.name">
-                    欢迎您，{{user.name}}
-                    <a style="margin-right: 50px; color: blue" href="javascript:void(0)" @click="logout">退出</a>
-                    </span>
-                    <a v-if="!(user.name)" href="/end/page/login.html" target="_blank" style="margin-right: 10px; color: #666666">登录</a>
+                    <span id="user-welcome"></span>
+                    <a id="login-link" href="/end/page/login.html" target="_blank" style="margin-right: 10px; color: #666666">登录</a>
                     <a href="/end/page/register.html" target="_blank" style="margin-right: 30px; color: #666666">注册</a>
                 </div>
             </div>
-
 
             <div>
                 <ul style="display: flex; background-color: orange; height: 30px">
                     <li class="nav-item"><a href="index.html">首页</a></li>
                     <li class="nav-item"><a href="advertiserInfo.html">系统公告</a></li>
-					<li class="nav-item"><a href="foodsMenuInfo.html">菜谱</a></li>
-<!--					<li class="nav-item"><a class="active" href="foodsMaterialInfo.html">食材</a></li>-->
-					<li class="nav-item"><a href="collectInfo.html">收藏</a></li>
-					<li class="nav-item"><a href="notesInfo.html">笔记</a></li>
-					<li class="nav-item"><a href="newsInfo.html">饮食资讯</a></li>
-					<li class="nav-item"><a href="messageInfo.html">趣味答题</a></li>
-
-                    <li v-if="isShow" class="nav-item"><a href="/end/page/index.html" target="_blank">进入后台系统</a></li>
+                    <li class="nav-item"><a href="foodsMenuInfo.html">菜谱</a></li>
+                    <li class="nav-item"><a href="collectInfo.html">收藏</a></li>
+                    <li class="nav-item"><a href="notesInfo.html">笔记</a></li>
+                    <li class="nav-item"><a href="newsInfo.html">饮食资讯</a></li>
+                    <li class="nav-item"><a href="messageInfo.html">趣味答题</a></li>
+                    <li id="admin-link" class="nav-item" style="display:none"><a href="/end/page/index.html" target="_blank">进入后台系统</a></li>
                 </ul>
             </div>
-
         </div>
         <!-- 头部结束 -->
     </div>
+
     <div class="container" style="margin-top: 10px">
         <div class="info">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="panel panel-default">
                         <div class="panel-body bg-gray">
-							<div class="row p-10">
-								<div class="col-md-2">名称：</div>
-								<div class="col-md-10">{{ obj.name }}</div>
-							</div>
-							<div class="row p-10">
-								<div class="col-md-2">描述：</div>
-								<div class="col-md-10">{{ obj.description }}</div>
-							</div>
-							<div class="row p-10">
-								<div class="col-md-2">上传人：</div>
-								<div class="col-md-10">{{ obj.userName }}</div>
-							</div>
-							<div class="row p-10">
-								<div class="col-md-2">图片：</div>
-								<div class="col-md-10">
-									<img v-if="obj.fileType === 'image'" :style="'width:' + imgWidth" :src="fileSrc" alt="">
-									<div v-if="obj.fileType === 'video'"><video controls="controls" :src="fileSrc" style="width: 100%"></video></div>
-									<div v-if="obj.fileType === 'other'">该文件不支持预览，只有视频和图片支持预览</div>
-								</div>
-							</div>
-
+                            <div class="row p-10">
+                                <div class="col-md-2">名称：</div>
+                                <div class="col-md-10" id="food-name"></div>
+                            </div>
+                            <div class="row p-10">
+                                <div class="col-md-2">描述：</div>
+                                <div class="col-md-10" id="food-description"></div>
+                            </div>
+                            <div class="row p-10">
+                                <div class="col-md-2">上传人：</div>
+                                <div class="col-md-10" id="food-userName"></div>
+                            </div>
+                            <div class="row p-10">
+                                <div class="col-md-2">图片：</div>
+                                <div class="col-md-10" id="food-media"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- /. 表单数据 -->
-
-        <div class="comment" v-if="isComment">
+        <!-- 评论区 -->
+        <div class="comment" id="comment-section" style="display: none;">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <h2>评论</h2>
                 </div>
             </div>
 
-
             <div class="comment-item">
-                <!--                <div class="row mt-10">-->
-                <!--                    <div class="col-md-8 col-md-offset-2" style="font-size: 20px; font-weight: bold">admin</div>-->
-                <!--                </div>-->
                 <div class="row mt-10">
                     <div class="col-md-8 col-md-offset-2" style="text-align: justify">
-                        <textarea style="resize:none; width: 100%" rows="3" v-model="comment.content"></textarea>
+                        <textarea id="comment-content" style="resize:none; width: 100%" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="row mt-10">
                     <div class="col-md-8 col-md-offset-2" style="text-align: right;">
-                        <button class="btn btn-primary f-r" @click="add()">发送</button>
+                        <button id="submit-comment" class="btn btn-primary f-r">发送</button>
                         <hr>
                     </div>
                 </div>
             </div>
 
-
-            <div class="comment-item" v-for="item in comments">
-                <div class="row mt-10">
-                    <div class="col-md-8 col-md-offset-2" style="font-size: 20px; font-weight: bold">{{ item.name }}
-                    </div>
-                </div>
-                <div class="row mt-10">
-                    <div class="col-md-8 col-md-offset-2" style="text-align: justify">
-                        {{ item.content }}
-                    </div>
-                </div>
-                <div class="row mt-10">
-                    <div class="col-md-8 col-md-offset-2" style="text-align: right;">
-                        <span style="color: #888888">{{ item.time }}</span>
-                        <hr>
-                    </div>
-                </div>
-            </div>
-
+            <div id="comments-list"></div>
         </div>
     </div>
 </div>
+
 <script src="js/jquery-1.10.2.js"></script>
-<script src="js/vue2.6.11/vue.min.js"></script>
-<script src="js/vue2.6.11/axios.js"></script>
-<script src="/end/js/quill.js"></script>
+<script src="js/vue2.6.11/axios.min.js"></script>
 
 <script>
+    $(document).ready(function () {
+        // 获取当前用户数据
+        axios.get('/auth').then(res => {
+            if (res.data.code === '0') {
+                const user = res.data.data;
+                if (user.name) {
+                    $('#user-welcome').text(`欢迎您，${user.name}`);
+                    $('#login-link').hide();
+                } else {
+                    $('#user-welcome').text('');
+                    $('#login-link').show();
+                }
 
-    new Vue({
-        el: '#wrapper',
-        data: {
-            imgWidth: '0px',
-            comments: [],
-            content: '',
-            obj: {},
-            isComment: false,
-            comment: {
-                content: '',
-                foreignId: 0
-            },
-            fileSrc: '',
-            user: {},
-            isShow: false
-        },
-        created() {
-            axios.get('/auth').then(res => {
+                if (user.level !== 3) {
+                    $('#admin-link').show();
+                }
+            }
+        });
+
+        const id = getQueryVariable('id');
+        if (id) {
+            loadFoodDetails(id);
+            loadComments(id);
+        }
+
+        // 加载食材详情
+        function loadFoodDetails(id) {
+            axios.get('/foodsMaterialInfo/' + id).then(res => {
                 if (res.data.code === '0') {
-                    this.user = res.data.data;
-                    if (this.user.level !== 3) {
-                        this.isShow = true;
+                    const obj = res.data.data;
+                    $('#food-name').text(obj.name);
+                    $('#food-description').text(obj.description);
+                    $('#food-userName').text(obj.userName);
+
+                    let mediaHtml = '';
+                    if (obj.fileName) {
+                        const fileSrc = '/files/download/' + obj.fileId;
+                        if (/\.(png|jpg|gif|jpeg|webp)$/.test(obj.fileName)) {
+                            mediaHtml = `<img src="${fileSrc}" alt="食材图片" style="width: 100%"/>`;
+                        } else if (/\.mp4$/.test(obj.fileName)) {
+                            mediaHtml = `<video controls="controls" src="${fileSrc}" style="width: 100%"></video>`;
+                        } else {
+                            mediaHtml = `<div>该文件不支持预览，只有视频和图片支持预览</div>`;
+                        }
                     }
+                    $('#food-media').html(mediaHtml);
+                } else {
+                    alert(res.data.msg);
                 }
             });
-
-            let id = this.getQueryVariable('id');
-            this.comment.foreignId = id;
-            if (id !== 0) {
-                axios.get('/foodsMaterialInfo/' + id).then(res => {
-                    if (res.data.code === '0') {
-                        let obj = res.data.data;
-                        this.obj = obj;
-                        if (obj.fileName) {
-                            if (/\.(png|jpg|gif|jpeg|webp)$/.test(obj.fileName)) {
-                                this.obj.fileType = 'image';
-                            } else if (/\.mp4$/.test(obj.fileName)) {
-                                this.obj.fileType = 'video';
-                            } else {
-                                this.obj.fileType = 'other';
-                            }
-                            this.fileSrc = '/files/download/' + obj.fileId;
-
-                            let img = new Image();
-                            img.src = this.fileSrc;
-                            let _this = this;
-                            img.onload = function(){
-                                if (img.width > 590) {
-                                    _this.imgWidth = "100%";
-                                } else {
-                                    _this.imgWidth = img.width + "px";
-                                }
-                            };
-                        }
-                        /*richText
-                        $('#view-notice-body').html(obj.content);
-                        richText*/
-                    } else {
-                        alert(res.data.msg)
-                    }
-                });
-                this.loadComments(id);
-            }
-        },
-        methods: {
-            add() {
-                if (this.comment.content === '') {
-                    return;
-                }
-                axios.post('/foodsMaterialInfoComment', this.comment).then(res => {
-                    if (res.data.code === '0') {
-                        this.comment.content = '';
-                        this.loadComments(this.comment.foreignId);
-                    } else {
-                        alert(res.data.msg);
-                    }
-                })
-            },
-            loadComments(id) {
-                axios.get('/foodsMaterialInfoComment/findByForeignId/' + id).then(res => {
-                    if (res.data.code === '0') {
-                        this.comments = res.data.data;
-                    } else {
-                        alert(res.data.msg)
-                    }
-                })
-            },
-            getQueryVariable(key) {
-                let query = window.location.search.substring(1);
-                let vars = query.split("&");
-                for (let i = 0; i < vars.length; i++) {
-                    let pair = vars[i].split("=");
-                    if (pair[0] === key) {
-                        return pair[1];
-                    }
-                }
-                return '';
-            },
-            logout() {
-                axios.get("/logout").then(res => {
-                    if(res.data.code === '0') {
-                        location.href = '/front/index.html';
-                    } else {
-                        msg('error', res.data.msg);
-                    }
-                })
-            }
         }
-    })
+
+        // 加载评论
+        function loadComments(id) {
+            axios.get('/foodsMaterialInfoComment/findByForeignId/' + id).then(res => {
+                if (res.data.code === '0') {
+                    const comments = res.data.data;
+                    if (comments.length > 0) {
+                        $('#comment-section').show();
+                        const commentsHtml = comments.map(comment => {
+                            return `
+                                <div class="comment-item">
+                                    <div class="row mt-10">
+                                        <div class="col-md-8 col-md-offset-2" style="font-size: 20px; font-weight: bold">${comment.name}</div>
+                                    </div>
+                                    <div class="row mt-10">
+                                        <div class="col-md-8 col-md-offset-2" style="text-align: justify">${comment.content}</div>
+                                    </div>
+                                    <div class="row mt-10">
+                                        <div class="col-md-8 col-md-offset-2" style="text-align: right;">
+                                            <span style="color: #888888">${comment.time}</span>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('');
+                        $('#comments-list').html(commentsHtml);
+                    }
+                } else {
+                    alert(res.data.msg);
+                }
+            });
+        }
+
+        // 获取 URL 参数
+        function getQueryVariable(key) {
+            let query = window.location.search.substring(1);
+            let vars = query.split("&");
+            for (let i = 0; i < vars.length; i++) {
+                let pair = vars[i].split("=");
+                if (pair[0] === key) {
+                    return pair[1];
+                }
+            }
+            return '';
+        }
+
+        // 添加评论
+        $('#submit-comment').on('click', function () {
+            const commentContent = $('#comment-content').val();
+            if (commentContent.trim() === '') {
+                return;
+            }
+
+            axios.post('/foodsMaterialInfoComment', { content: commentContent, foreignId: id }).then(res => {
+                if (res.data.code === '0') {
+                    $('#comment-content').val('');
+                    loadComments(id);
+                } else {
+                    alert(res.data.msg);
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>
