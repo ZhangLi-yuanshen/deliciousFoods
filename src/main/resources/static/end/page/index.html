@@ -1,123 +1,81 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="pragma" content="no-cache" />
-    <meta http-equiv="content-type" content="no-cache, must-revalidate" />
-    <meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT"/>
-    <title>home</title>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="content-type" content="no-cache, must-revalidate" />
+	<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT"/>
+	<title>home</title>
 
-    <link href="../css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/font-awesome.css" rel="stylesheet"/>
-    <link href="../css/basic.css" rel="stylesheet"/>
-    <link href="../css/custom.css" rel="stylesheet"/>
-    <link href="../css/my.css" rel="stylesheet"/>
-    <link href="../css/element/index.css" rel="stylesheet"/>
+	<link href="../css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="../css/font-awesome.css" rel="stylesheet"/>
+	<link href="../css/basic.css" rel="stylesheet"/>
+	<link href="../css/custom.css" rel="stylesheet"/>
+	<link href="../css/my.css" rel="stylesheet"/>
+	<link href="../css/element/index.css" rel="stylesheet"/>
 
-    <style>
-        [v-cloak] {
-            display: none;
-        }
-    </style>
+	<style>
+		[v-cloak] {
+			display: none;
+		}
+	</style>
 </head>
 
 <body>
-<div id="wrapper" v-cloak>
-    <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="index.html">后端管理系统</a>
-        </div>
+<div id="wrapper">
+	<nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="index.html">后端管理系统</a>
+		</div>
 
-        <div class="header-right">
-            <a href="javascript:void(0)" class="btn btn-info" @click="logout" title="退出登录">
-                <i class="fa fa-sign-out fa-2x"></i>
-            </a>
-        </div>
+		<div class="header-right">
+			<a href="javascript:void(0)" class="btn btn-info" id="logoutBtn" title="退出登录">
+				<i class="fa fa-sign-out fa-2x"></i>
+			</a>
+		</div>
 
-        <div class="header-right">
-            <a href="javascript:void(0)" class="btn btn-info" title="跳转到个人信息" @click="personalPage">
-                <i class="fa fa-user fa-2x"></i>
-            </a>
-        </div>
+		<div class="header-right">
+			<a href="javascript:void(0)" class="btn btn-info" id="personalPageBtn" title="跳转到个人信息">
+				<i class="fa fa-user fa-2x"></i>
+			</a>
+		</div>
 
-        <div class="header-right" style="padding-top: 25px">欢迎你，{{ user.name }}</div>
+		<div class="header-right" style="padding-top: 25px" id="userGreeting"></div>
 
-        <div class="header-left">
-            <a href="/front/index.html" class="btn btn-info" title="跳转到首页">
-                <i class="fa fa-dot-circle-o fa-2x"></i>
-            </a>
-        </div>
-    </nav>
-    <!-- /. NAV TOP  -->
-    <nav class="navbar-default navbar-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav" id="main-menu">
-                <li>
-                    <a class="active-menu" href="index.html"><i class="fa fa-dashboard "></i>系统首页</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-yelp "></i>信息展示 <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level collapse in">
-						<li v-if="authority.indexOf(1) != -1">
-							<a href="adminInfo.html"><i class="fa fa-table"></i>管理员信息</a>
-						</li>
-						<li v-if="authority.indexOf(2) != -1">
-							<a href="userInfo.html"><i class="fa fa-table"></i>用户信息</a>
-						</li>
-						<li v-if="authority.indexOf(3) != -1">
-							<a href="classifyInfo.html"><i class="fa fa-table"></i>菜谱大类信息</a>
-						</li>
-						<li v-if="authority.indexOf(4) != -1">
-							<a href="subClassifyInfo.html"><i class="fa fa-table"></i>菜谱小类信息</a>
-						</li>
-						<li v-if="authority.indexOf(5) != -1">
-							<a href="foodsMenuInfo.html"><i class="fa fa-table"></i>菜谱信息</a>
-						</li>
-						<li v-if="authority.indexOf(6) != -1">
-							<a href="foodsMaterialInfo.html"><i class="fa fa-table"></i>食材信息</a>
-						</li>
-						<li v-if="authority.indexOf(7) != -1">
-							<a href="collectInfo.html"><i class="fa fa-table"></i>收藏信息</a>
-						</li>
-						<li v-if="authority.indexOf(8) != -1">
-							<a href="praiseInfo.html"><i class="fa fa-table"></i>笔记点赞信息</a>
-						</li>
-						<li v-if="authority.indexOf(9) != -1">
-							<a href="notesInfo.html"><i class="fa fa-table"></i>笔记信息</a>
-						</li>
-						<li v-if="authority.indexOf(10) != -1">
-							<a href="newsInfo.html"><i class="fa fa-table"></i>饮食资讯信息</a>
-						</li>
-						<li v-if="authority.indexOf(1000001) != -1">
-							<a href="advertiserInfo.html"><i class="fa fa-table"></i>公告信息</a>
-						</li>
-						<li v-if="authority.indexOf(1000002) != -1">
-							<a href="messageInfo.html"><i class="fa fa-table"></i>趣味答题信息</a>
-						</li>
+		<div class="header-left">
+			<a href="/front/index.html" class="btn btn-info" title="跳转到首页">
+				<i class="fa fa-dot-circle-o fa-2x"></i>
+			</a>
+		</div>
+	</nav>
 
-                        <li>
-                            <a href="javascript:void(0)" @click="personalPage"><i class="fa fa-user"></i>个人信息</a>
-                        </li>
-                    </ul>
-                </li>
+	<nav class="navbar-default navbar-side" role="navigation">
+		<div class="sidebar-collapse">
+			<ul class="nav" id="main-menu">
+				<li>
+					<a class="active-menu" href="index.html"><i class="fa fa-dashboard "></i>系统首页</a>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-yelp "></i>信息展示 <span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level collapse in" id="menuList"></ul>
+				</li>
 				<li>
 					<a href="notesInfoComment.html"><i class="fa fa-file"></i>笔记信息评论</a>
 				</li>
 
-                <li>
-                    <a href="updatePassword.html"><i class="fa fa-unlock-alt"></i>修改密码</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" @click="logout"><i class="fa fa-power-off"></i>退出登录</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+				<li>
+					<a href="updatePassword.html"><i class="fa fa-unlock-alt"></i>修改密码</a>
+				</li>
+				<li>
+					<a href="javascript:void(0)" id="logoutLink"><i class="fa fa-power-off"></i>退出登录</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
 
-    <div id="page-wrapper">
-        <div id="page-inner">
+	<div id="page-wrapper">
+		<div id="page-inner">
 			<div class="row">
 				<div class="col-md-3">
 					<div class="main-box mb-red">
@@ -197,30 +155,26 @@
 				</div>
 			</div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            数据图表
-                            <select style="margin-left: 10px" @change="drawLine"
-                                    v-model="echartsModel">
-                                <option v-for="item in echartsModelOptions" :key="item.value" :value="item.value">{{item.label}}</option>
-                            </select>
-                            <select style="float:right" @change="selectEchartsType" v-model="echartsType">
-                                <option value="pie">饼图</option>
-                                <option value="bar">柱状图</option>
-                            </select>
-                        </div>
-                        <div class="panel-body">
-                            <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-                            <div id="main" style="width: 100%;height:400px;"></div>
-                        </div>
-                    </div>
-                </div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							数据图表
+							<select style="margin-left: 10px" id="echartsModelSelect"></select>
+							<select style="float:right" id="echartsTypeSelect">
+								<option value="pie">饼图</option>
+								<option value="bar">柱状图</option>
+							</select>
+						</div>
+						<div class="panel-body">
+							<div id="main" style="width: 100%;height:400px;"></div>
+						</div>
+					</div>
+				</div>
 
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script src="../js/jquery-1.10.2.js"></script>
@@ -228,91 +182,108 @@
 <script src="../js/jquery.metisMenu.js"></script>
 <script src="../js/custom.js"></script>
 <script src="../js/my.js"></script>
-<script src="../js/vue2.6.11/vue.min.js"></script>
-<script src="../js/vue2.6.11/axios.js"></script>
 <script src="../js/echarts.min.js"></script>
-<script src="../js/element/index.js"></script>
 
 <script>
+	$(document).ready(function() {
+		// Get the logged-in user info
+		var user = JSON.parse(localStorage.getItem('user'));
+		$('#userGreeting').text('欢迎你，' + user.name);
 
-    new Vue({
-        el: "#wrapper",
-        data: {
-            user: {},
-            authority: [],
-            echartsModelOptions: [],
-            echartsModel: '',
-            echartsShowArr: [],
-            echartsType: 'pie'
-        },
-        created: function () {
-            axios.get('/echarts/options').then(res => {
-                this.echartsModelOptions = res.data.data;
-                if (this.echartsModelOptions.length) {
-                    this.echartsModel = this.echartsModelOptions[0].value;
-                    this.drawLine();
-                }
-            });
-            axios.get("/authority").then(res => {
-                if (res.data.code === '0') {
-                    this.authority = res.data.data;
-                } else {
-                    msg('error', res.data.msg);
-                }
-            });
-            axios.get("/getTotal").then(res => {
-                if (res.data.code === '0') {
-                    let map = res.data.data;
-					$("#adminInfo").text(map['adminInfo']);
-					$("#userInfo").text(map['userInfo']);
-					$("#classifyInfo").text(map['classifyInfo']);
-					$("#subClassifyInfo").text(map['subClassifyInfo']);
-					$("#collectInfo").text(map['collectInfo']);
-					$("#praiseInfo").text(map['praiseInfo']);
-					$("#newsInfo").text(map['newsInfo']);
-					$("#advertiserInfo").text(map['advertiserInfo']);
-					$("#messageInfo").text(map['messageInfo']);
+		// Menu permissions based on user authority
+		var authority = [];
+		$.get("/authority", function(res) {
+			if (res.code === '0') {
+				authority = res.data;
+				populateMenu(authority);
+			} else {
+				msg('error', res.msg);
+			}
+		});
 
-                }
-            });
+		// Get total counts
+		$.get("/getTotal", function(res) {
+			if (res.code === '0') {
+				var map = res.data;
+				$("#adminInfo").text(map['adminInfo']);
+				$("#userInfo").text(map['userInfo']);
+				$("#classifyInfo").text(map['classifyInfo']);
+				$("#subClassifyInfo").text(map['subClassifyInfo']);
+				$("#collectInfo").text(map['collectInfo']);
+				$("#praiseInfo").text(map['praiseInfo']);
+				$("#newsInfo").text(map['newsInfo']);
+				$("#advertiserInfo").text(map['advertiserInfo']);
+				$("#messageInfo").text(map['messageInfo']);
+			}
+		});
 
-            // 处理预约审核模型代码
-            let user = JSON.parse(localStorage.getItem('user'));
-            let level = user.level;
-            this.user = user;
+		// Populate menu
+		function populateMenu(authority) {
+			var menuList = $('#menuList');
+			var menuItems = [
+				{ name: '管理员信息', authorityId: 1, link: 'adminInfo.html' },
+				{ name: '用户信息', authorityId: 2, link: 'userInfo.html' },
+				{ name: '菜谱大类信息', authorityId: 3, link: 'classifyInfo.html' },
+				{ name: '菜谱小类信息', authorityId: 4, link: 'subClassifyInfo.html' },
+				{ name: '菜谱信息', authorityId: 5, link: 'foodsMenuInfo.html' },
+				{ name: '食材信息', authorityId: 6, link: 'foodsMaterialInfo.html' },
+				{ name: '收藏信息', authorityId: 7, link: 'collectInfo.html' },
+				{ name: '笔记点赞信息', authorityId: 8, link: 'praiseInfo.html' },
+				{ name: '笔记信息', authorityId: 9, link: 'notesInfo.html' },
+				{ name: '饮食资讯信息', authorityId: 10, link: 'newsInfo.html' },
+				{ name: '公告信息', authorityId: 1000001, link: 'advertiserInfo.html' },
+				{ name: '趣味答题信息', authorityId: 1000002, link: 'messageInfo.html' }
+			];
 
-        },
-        methods: {
-            drawLine() {
-                axios.get('/echarts/get/' + this.echartsModel).then(res => {
-                    // 基于准备好的dom，初始化echarts实例
-                    this.echartsShowArr = res.data.data;
-                    if (this.echartsShowArr.length) {
-                        let myChart = echarts.init(document.getElementById('main'));
-                        let option = this.getEchartsType(this.echartsShowArr, this.echartsType);
-                        myChart.setOption(option, true);
-                    }
-                });
-            },
-            selectEchartsType() {
-                let myChart = echarts.init(document.getElementById('main'));
-                let option = this.getEchartsType(this.echartsShowArr, this.echartsType);
-                myChart.setOption(option, true);
-            },
-            getEchartsType(echartsArr, type) {
-                for (let item of echartsArr) {
-                    if (item.series[0].type === type) {
-                        return item;
-                    }
-                }
-            },
-            logout() {
-                logout();
-            }
-        }
-    });
+			menuItems.forEach(function(item) {
+				if (authority.indexOf(item.authorityId) !== -1) {
+					menuList.append('<li><a href="' + item.link + '"><i class="fa fa-table"></i>' + item.name + '</a></li>');
+				}
+			});
+		}
 
+		// Logout functionality
+		$('#logoutBtn').click(function() {
+			localStorage.removeItem('user');
+			window.location.href = 'login.html';
+		});
 
+		$('#logoutLink').click(function() {
+			localStorage.removeItem('user');
+			window.location.href = 'login.html';
+		});
+
+		// ECharts select option change
+		$('#echartsTypeSelect').change(function() {
+			updateEcharts();
+		});
+
+		$('#echartsModelSelect').change(function() {
+			updateEcharts();
+		});
+
+		// Fetch Echarts data and render the chart
+		function updateEcharts() {
+			var selectedModel = $('#echartsModelSelect').val();
+			var selectedType = $('#echartsTypeSelect').val();
+			$.get('/echarts/get/' + selectedModel, function(res) {
+				if (res.data.length) {
+					var chartData = res.data;
+					var myChart = echarts.init(document.getElementById('main'));
+					var option = getEchartsOption(chartData, selectedType);
+					myChart.setOption(option, true);
+				}
+			});
+		}
+
+		function getEchartsOption(data, type) {
+			for (let item of data) {
+				if (item.series[0].type === type) {
+					return item;
+				}
+			}
+		}
+	});
 </script>
 
 </body>
