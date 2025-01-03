@@ -41,8 +41,7 @@
             </a>
         </div>
 
-<!--        <div class="header-right" style="padding-top: 25px">欢迎你，{{ user.name }}</div>-->
-        <div class="header-right" style="padding-top: 25px">欢迎你，{{ user && user.name || '默认用户名' }}</div>
+        <div class="header-right" style="padding-top: 25px">欢迎你，{{ user.name }}</div>
 
         <div class="header-left">
             <a href="/front/index.html" class="btn btn-info" title="跳转到首页">
@@ -226,16 +225,14 @@
     </div>
 </div>
 
-
-<script src="../js/vue2.6.11/vue.min.js"></script>  <!-- Vue 首先加载 -->
-<script src="../js/vue2.6.11/axios.js"></script>    <!-- 然后加载 Axios -->
-<script src="../js/element/index.js"></script>      <!-- 再加载 Element -->
-<script src="../js/jquery-1.10.2.js"></script>      <!-- 然后是 jQuery 和其他依赖 -->
+<script src="../js/jquery-1.10.2.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/jquery.metisMenu.js"></script>
 <script src="../js/custom.js"></script>
 <script src="../js/my.js"></script>
-
+<script src="../js/vue2.6.11/vue.min.js"></script>
+<script src="../js/vue2.6.11/axios.js"></script>
+<script src="../js/element/index.js"></script>
 
 <script>
     function msg(type, msg) {
@@ -267,7 +264,6 @@
             }
         },
         created: function () {
-
 
             this.loadTable(1);
 

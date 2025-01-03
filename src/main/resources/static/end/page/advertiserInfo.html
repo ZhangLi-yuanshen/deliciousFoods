@@ -1,7 +1,9 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="pragma" content="no-cache" />
     <meta http-equiv="content-type" content="no-cache, must-revalidate" />
@@ -27,8 +29,97 @@
 </head>
 
 <body>
-<div id="wrapper">
-    <!-- Header, Navigation, Sidebar omitted for brevity -->
+<div id="wrapper" v-cloak>
+    <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">后端管理系统</a>
+        </div>
+
+        <div class="header-right">
+            <a href="javascript:void(0)" class="btn btn-info" @click="logout" title="退出登录">
+                <i class="fa fa-sign-out fa-2x"></i>
+            </a>
+        </div>
+
+        <div class="header-right">
+            <a href="javascript:void(0)" class="btn btn-info" title="跳转到个人信息" @click="personalPage">
+                <i class="fa fa-user fa-2x"></i>
+            </a>
+        </div>
+
+        <div class="header-right" style="padding-top: 25px">欢迎你，{{ user.name }}</div>
+
+        <div class="header-left">
+            <a href="/front/index.html" class="btn btn-info" title="跳转到首页">
+                <i class="fa fa-dot-circle-o fa-2x"></i>
+            </a>
+        </div>
+    </nav>
+    <!-- /. NAV TOP  -->
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <li>
+                    <a href="index.html"><i class="fa fa-dashboard "></i>系统首页</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-yelp "></i>信息展示 <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level  collapse in">
+						<li v-if="authority.indexOf(1) != -1">
+							<a href="adminInfo.html"><i class="fa fa-table"></i>管理员信息</a>
+						</li>
+						<li v-if="authority.indexOf(2) != -1">
+							<a href="userInfo.html"><i class="fa fa-table"></i>用户信息</a>
+						</li>
+						<li v-if="authority.indexOf(3) != -1">
+							<a href="classifyInfo.html"><i class="fa fa-table"></i>菜谱大类信息</a>
+						</li>
+						<li v-if="authority.indexOf(4) != -1">
+							<a href="subClassifyInfo.html"><i class="fa fa-table"></i>菜谱小类信息</a>
+						</li>
+						<li v-if="authority.indexOf(5) != -1">
+							<a href="foodsMenuInfo.html"><i class="fa fa-table"></i>菜谱信息</a>
+						</li>
+						<li v-if="authority.indexOf(6) != -1">
+							<a href="foodsMaterialInfo.html"><i class="fa fa-table"></i>食材信息</a>
+						</li>
+						<li v-if="authority.indexOf(7) != -1">
+							<a href="collectInfo.html"><i class="fa fa-table"></i>收藏信息</a>
+						</li>
+						<li v-if="authority.indexOf(8) != -1">
+							<a href="praiseInfo.html"><i class="fa fa-table"></i>笔记点赞信息</a>
+						</li>
+						<li v-if="authority.indexOf(9) != -1">
+							<a href="notesInfo.html"><i class="fa fa-table"></i>笔记信息</a>
+						</li>
+						<li v-if="authority.indexOf(10) != -1">
+							<a href="newsInfo.html"><i class="fa fa-table"></i>饮食资讯信息</a>
+						</li>
+						<li v-if="authority.indexOf(1000001) != -1">
+							<a href="advertiserInfo.html" class="active-menu"><i class="fa fa-table"></i>公告信息</a>
+						</li>
+						<li v-if="authority.indexOf(1000002) != -1">
+							<a href="messageInfo.html"><i class="fa fa-table"></i>趣味答题信息</a>
+						</li>
+
+                        <li>
+                            <a href="javascript:void(0)" @click="personalPage"><i class="fa fa-user"></i>个人信息</a>
+                        </li>
+                    </ul>
+                </li>
+				<li>
+					<a href="notesInfoComment.html"><i class="fa fa-file"></i>笔记信息评论</a>
+				</li>
+
+                <li>
+                    <a href="updatePassword.html"><i class="fa fa-unlock-alt"></i>修改密码</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" @click="logout"><i class="fa fa-power-off"></i>退出登录</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
     <div id="page-wrapper">
         <div id="page-inner">
@@ -44,11 +135,11 @@
                 <div class="panel-body">
                     <div class="table-responsive">
                         <div class="nx-table-header">
-                            <button class="btn btn-sm btn-primary" id="addBtn">新增</button>
-                            <input type="text" placeholder="请输入搜索内容" id="searchName">
-                            <i class="glyphicon glyphicon-search" id="searchBtn"></i>
+                            <button class="btn btn-sm btn-primary" @click="add()">新增</button>
+                            <input type="text" placeholder="请输入搜索内容" v-model="name" @keyup.enter="loadTable(1)">
+                            <i class="glyphicon glyphicon-search"></i>
                         </div>
-                        <table class="table table-striped table-bordered table-hover" id="advertiserTable">
+                        <table class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -58,27 +149,50 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <!-- Data will be dynamically loaded here -->
+                            <tr v-for="(data,index) in tableData" :key="data.id">
+                                <td>{{data.id}}</td>
+                                <td>{{data.name}}</td>
+                                <td>{{data.time}}</td>
+                                <td>
+                                    <button class="btn btn-success btn-xs" @click="edit(data)">编辑</button>
+                                    <button class="btn btn-danger btn-xs" @click="del(data.id)">删除</button>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                         <nav aria-label="Page navigation example">
-                            <ul class="pagination" id="pagination">
-                                <!-- Pagination will be dynamically generated -->
+                            <ul class="pagination">
+                                <li class="page-item" v-bind:class="{ disabled: preActive }">
+                                    <a class="page-link" href="javascript:void(0)"
+                                       v-on:click="loadTable(pageInfo.pageNum - 1)">上一页</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0)" v-if="pageInfo.pageNum > 1" v-on:click="loadTable(pageInfo.pageNum - 1)">{{pageInfo.pageNum - 1}}</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" aria-disabled="true" href="javascript:void(0)">{{pageInfo.pageNum}}</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0)" v-if="pageInfo.hasNextPage" v-on:click="loadTable(pageInfo.pageNum + 1)">{{pageInfo.pageNum + 1}}</a>
+                                </li>
+                                <li class="page-item" v-bind:class="{ disabled: nextActive }">
+                                    <a class="page-link" href="javascript:void(0)" v-on:click="loadTable(pageInfo.hasNextPage? (pageInfo.pageNum + 1) : pageInfo.pageNum)">下一页</a>
+                                </li>
                             </ul>
                         </nav>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
-
-<!-- Modal for editing/adding data -->
 <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" id="closeBtn" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" id="closeBtn" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 公告信息
             </div>
             <div class="modal-body">
@@ -99,201 +213,187 @@
 
 <script src="../js/jquery-1.10.2.js"></script>
 <script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery.metisMenu.js"></script>
+<script src="../js/custom.js"></script>
+<script src="../js/my.js"></script>
+<script src="../js/vue2.6.11/vue.min.js"></script>
+<script src="../js/vue2.6.11/axios.js"></script>
 <script src="../js/quill.js"></script>
+<script src="../js/element/index.js"></script>
 
+<!--文件上传js-->
 <script>
+    function msg(type, msg) {
+        Vue.prototype.$message({
+            type: type, // success（成功）、warning（警告）, error(错误)
+            message: msg,
+            duration: 2000,
+            offset: 100,
+            center: true,
+        })
+    }
+
     let quill = new Quill('#editor', {
         theme: 'snow',
         modules: {
-            toolbar: [
-                [{'header': [1, 2, 3, 4, 5, 6, false]}],
-                [{'font': []}],
-                ['bold', 'italic', 'underline', 'strike'],
-                [{'align': []}],
-                ['blockquote', 'code-block'],
-                [{'header': 1}, {'header': 2}],
-                [{'list': 'ordered'}, {'list': 'bullet'}],
-                [{'indent': '-1'}, {'indent': '+1'}],
-                [{'color': []}, {'background': []}],
-                ['clean'],
-                ['image', 'link', 'video']
-            ]
+            toolbar: {
+                container: [
+                    [{'header': [1, 2, 3, 4, 5, 6, false]}],        // 标题字体
+                    [{'font': []}],                                 // 字体
+                    ['bold', 'italic', 'underline', 'strike'],        // 切换按钮
+                    [{'align': []}],                                // 对齐方式
+                    ['blockquote', 'code-block'],                     // 文本块/代码块
+                    [{'header': 1}, {'header': 2}],               // 用户自定义按钮值
+                    [{'list': 'ordered'}, {'list': 'bullet'}],     // 有序/无序列表
+                    [{'indent': '-1'}, {'indent': '+1'}],          // 减少缩进/缩进
+                    [{'color': []}, {'background': []}],          // 主题默认下拉，使用主题提供的值
+                    ['clean'],                                        // 清除格式
+                    ['image', 'link', 'video']                        // 图片 / 链接 / 视频
+                ]
+            }
+
         }
     });
 
-    $(document).ready(function() {
-        // Initialize user and permissions
-        let user = JSON.parse(localStorage.getItem('user'));
-        let authority = [];
-        let permission = [];
+    let wrapper = new Vue({
+        el: '#wrapper',
+        data: {
+            user: {},
+            name: '',
+            entity: {},
+            authority: [],
+            permission: [],
+            tableData: [],
+            pageInfo: {},
+            preActive: true,
+            nextActive: true,
+            modalData: {}
+        },
+        created: function () {
+            this.loadTable(1);
+            this.user = JSON.parse(localStorage.getItem('user'));
+            axios.get("/permission/1000001").then(res => {
+                if (res.data.code === '0') {
+                    this.permission = res.data.data;
+                } else {
+                    msg('error', res.data.msg);
+                }
+            });
 
-        // Fetch permissions and authority
-        $.get("/permission/1000001", function(res) {
-            if (res.data.code === '0') {
-                permission = res.data.data;
-            } else {
-                alert('Error: ' + res.data.msg);
-            }
-        });
-
-        $.get("/authority", function(res) {
-            if (res.data.code === '0') {
-                authority = res.data.data;
-            } else {
-                alert('Error: ' + res.data.msg);
-            }
-        });
-
-        // Load table data
-        loadTable(1);
-
-        // Event listeners
-        $('#addBtn').click(function() {
-            // if (permission.indexOf(1) === -1) {
-            //     alert('你没有权限操作');
-            //     return;
-            // }
-            resetModal();
-            $('#myModal').modal('show');
-        });
-
-        $('#searchBtn').click(function() {
-            loadTable(1);
-        });
-
-        $('#saveBtn').click(function() {
-            let entity = {
-                name: $('#modal-name').val(),
-                content: quill.root.innerHTML
-            };
-            let id = $('#modal-id').val();
-            if (id) {
-                entity.id = id;
-                $.ajax({
-                    url: "/advertiserInfo",
-                    method: "PUT",
-                    data: entity,
-                    success: function(res) {
-                        if (res.code === '0') {
-                            alert('更新成功');
-                            loadTable(1);
-                            $('#myModal').modal('hide');
-                        } else {
-                            alert('错误: ' + res.msg);
-                        }
+            axios.get("/authority").then(res => {
+                if (res.data.code === '0') {
+                    this.authority = res.data.data;
+                } else {
+                    msg('error', res.data.msg);
+                }
+            });
+        },
+        methods: {
+            loadTable(pageNum) {
+                let name = this.name === '' ? "all" : this.name;
+                axios.get("/advertiserInfo/page/" + name + "?pageNum=" + pageNum).then(res => {
+                    if (res.data.code === '0') {
+                        this.tableData = res.data.data.list;
+                        this.pageInfo = res.data.data;
+                        this.preActive = !(this.pageInfo.hasPreviousPage);
+                        this.nextActive = !(this.pageInfo.hasNextPage);
+                    } else {
+                        msg('error', res.data.msg);
                     }
                 });
-            } else {
-                $.ajax({
-                    url: "/advertiserInfo",
-                    method: "POST",
-                    data: entity,
-                    success: function(res) {
-                        if (res.code === '0') {
-                            alert('添加成功');
-                            loadTable(1);
-                            $('#myModal').modal('hide');
+            },
+            add() {
+                if (this.permission.indexOf(1) === -1) {
+                    msg('warning', '你没有权限操作');
+                    return;
+                }
+                this.entity = {};
+                $('#modal-id').val('');
+                $('#modal-name').val('');
+                quill.root.innerHTML = '';
+                $('#myModal').modal('show');
+            },
+            edit(data) {
+                if (this.permission.indexOf(3) === -1) {
+                    msg('warning', '你没有权限操作');
+                    return;
+                }
+                $('#modal-id').val(data.id);
+                $('#modal-name').val(data.name);
+                quill.root.innerHTML = data.content;
+                $('#myModal').modal('show');
+            },
+            del(id) {
+                if (this.permission.indexOf(2) === -1) {
+                    msg('warning', '你没有权限操作');
+                    return;
+                }
+
+                this.$confirm('确认删除？', '系统提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    cancelButtonClass: 'btn-custom-cancel',
+                    type: 'warning'
+                }).then(function(){
+                    axios.delete('/advertiserInfo/' + id).then(res => {
+                        if (res.data.code === '0') {
+                            msg('success', '删除成功');
+                            wrapper.loadTable(1);
                         } else {
-                            alert('错误: ' + res.msg);
+                            msg('error', res.data.msg);
                         }
-                    }
-                });
-            }
-        });
-
-        $('#cancelBtn').click(function() {
-            $('#myModal').modal('hide');
-        });
-
-        $('#closeBtn').click(function() {
-            $('#myModal').modal('hide');
-        });
-
-        // Load table function
-        function loadTable(pageNum) {
-            let name = $('#searchName').val() || "all";
-            $.get(`/advertiserInfo/page/${name}?pageNum=${pageNum}`, function(res) {
-                if (res.code === '0') {
-                    let data = res.data;
-                    let tableHtml = '';
-                    data.list.forEach(function(item) {
-                        tableHtml += `<tr>
-                            <td>${item.id}</td>
-                            <td>${item.name}</td>
-                            <td>${item.time}</td>
-                            <td>
-                                <button class="btn btn-success btn-xs editBtn" data-id="${item.id}">编辑</button>
-                                <button class="btn btn-danger btn-xs delBtn" data-id="${item.id}">删除</button>
-                            </td>
-                        </tr>`;
                     });
-                    $('#advertiserTable tbody').html(tableHtml);
-
-                    // Pagination
-                    let paginationHtml = '';
-                    if (data.hasPreviousPage) {
-                        paginationHtml += `<li><a href="javascript:void(0)" class="page-link" data-page="${data.pageNum - 1}">上一页</a></li>`;
-                    }
-                    paginationHtml += `<li class="disabled"><span class="page-link">${data.pageNum}</span></li>`;
-                    if (data.hasNextPage) {
-                        paginationHtml += `<li><a href="javascript:void(0)" class="page-link" data-page="${data.pageNum + 1}">下一页</a></li>`;
-                    }
-                    $('#pagination').html(paginationHtml);
-                } else {
-                    alert('错误: ' + res.msg);
-                }
-            });
-        }
-
-        // Edit button
-        $('#advertiserTable').on('click', '.editBtn', function() {
-            let id = $(this).data('id');
-            // if (permission.indexOf(3) === -1) {
-            //     alert('你没有权限操作');
-            //     return;
-            // }
-            $.get(`/advertiserInfo/${id}`, function(res) {
-                if (res.code === '0') {
-                    let data = res.data;
-                    $('#modal-id').val(data.id);
-                    $('#modal-name').val(data.name);
-                    quill.root.innerHTML = data.content;
-                    $('#myModal').modal('show');
-                } else {
-                    alert('错误: ' + res.msg);
-                }
-            });
-        });
-
-        // Delete button
-        $('#advertiserTable').on('click', '.delBtn', function() {
-            let id = $(this).data('id');
-            // if (permission.indexOf(2) === -1) {
-            //     alert('你没有权限操作');
-            //     return;
-            // }
-            if (confirm('确认删除？')) {
-                $.ajax({
-                    url: `/advertiserInfo/${id}`,
-                    method: "DELETE",
-                    success: function(res) {
-                        if (res.code === '0') {
-                            alert('删除成功');
-                            loadTable(1);
-                        } else {
-                            alert('错误: ' + res.msg);
-                        }
-                    }
+                }).catch(function() {
+                    console.log("取消成功！");
                 });
+            },
+            logout() {
+                logout();
             }
-        });
-
-        function resetModal() {
-            $('#modal-id').val('');
-            $('#modal-name').val('');
-            quill.root.innerHTML = '';
         }
     });
+
+    $('#saveBtn').click(function () {
+        let entity = wrapper.$data.entity;
+        entity.content = quill.root.innerHTML;
+        entity.name = $('#modal-name').val();
+        if (!$('#modal-id').val()) {
+            axios.post(
+                "/advertiserInfo", entity
+            ).then(res => {
+                if (res.data.code === '0') {
+                    msg('success', '添加成功');
+                    wrapper.loadTable(1);
+                } else {
+                    msg('error', res.data.msg);
+                }
+            })
+        } else {
+            entity.id = $('#modal-id').val();
+            axios.put(
+                "/advertiserInfo", entity
+            ).then(res => {
+                if (res.data.code === '0') {
+                    msg('success', '更新成功');
+                    wrapper.loadTable(1);
+                } else {
+                    msg('error', res.data.msg);
+                }
+            })
+        }
+        $('iframe.ql-video').attr('src', '');  // 清空视频iframe的src属性，可关闭视频
+        $('#myModal').modal('hide');
+    });
+
+    $('#cancelBtn').click(function () {
+        $('#myModal').modal('hide');
+        $('iframe.ql-video').attr('src', '')  // 清空视频iframe的src属性，可关闭视频
+    });
+
+    $('#closeBtn').click(function () {
+        $('#myModal').modal('hide');
+        $('iframe.ql-video').attr('src', '')  // 清空视频iframe的src属性，可关闭视频
+    })
 </script>
 </body>
 </html>

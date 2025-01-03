@@ -9,16 +9,16 @@
     <link href="../css/font-awesome.css" rel="stylesheet"/>
 
     <style>
-        .hidden {
+        [v-cloak] {
             display: none;
         }
     </style>
 </head>
 <body style="background-color: #E2E2E2;">
-<div id="app" class="container">
+<div id="app" class="container" v-cloak>
     <div class="row text-center " style="padding-top:100px;">
         <div class="col-md-12">
-            <h2>欢迎注册</h2>
+           <h2>欢迎注册</h2>
         </div>
     </div>
     <div class="row ">
@@ -31,30 +31,30 @@
                     <br/>
                     <div class="form-group input-group">
                         <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                        <input type="text" id="username" class="form-control" placeholder="用户名"/>
+                        <input type="text" class="form-control" v-model="user.name" placeholder="用户名"/>
                     </div>
                     <div class="form-group input-group">
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                        <input type="password" id="password" class="form-control" placeholder=" 密码"/>
+                        <input type="password" class="form-control" v-model="user.password" placeholder=" 密码"/>
                     </div>
                     <div class="form-group input-group">
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                        <input type="password" id="newPassword" class="form-control" placeholder=" 确认密码"/>
+                        <input type="password" class="form-control" v-model="user.newPassword" placeholder=" 确认密码"/>
                     </div>
                     <div class="form-group input-group">
                         <span class="input-group-addon"><i class="fa fa-male"></i></span>
                         <div style="margin-left: 20px">
-                            <input type="radio" name="sex" id="male" value="男" checked>
+                            <input type="radio" name="sex" v-model="user.sex" value="男" title="男" checked>
                             <span style="margin: 0 20px 0 5px">男</span>
-                            <input type="radio" name="sex" id="female" value="女">
+                            <input type="radio" name="sex" v-model="user.sex" value="女" title="女">
                             <span style="margin: 0 20px 0 5px">女</span>
                         </div>
                     </div>
                     <h5>请选择角色</h5>
                     <div class="form-group input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                        <select id="roleSelect" class="form-control" style="height:35px;">
-                            <!-- Options will be added dynamically -->
+                        <select v-model="user.level" class="form-control" style="height:35px;">
+                            <option v-for="item in authorities" :value="item.level" name="level">{{item.name}}</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -65,7 +65,7 @@
                     </div>
 
                     <div style="text-align: center">
-                        <a href="javascript:void(0)" id="registerBtn" class="btn btn-primary">注册</a>
+                        <a href="javascript:void(0)" @click="register" class="btn btn-primary">注册</a>
                     </div>
                     <hr/>
                     <div style="text-align: center">
@@ -78,71 +78,61 @@
     </div>
 </div>
 
-<script src="../js/jquery-1.10.2.js"></script>
+<script src="../js/vue2.6.11/vue.min.js"></script>
 <script src="../js/vue2.6.11/axios.js"></script>
 
 <script>
-    $(document).ready(function() {
-        let authorities = [];
-
-        // Fetch the authorities (roles) when the page loads
-        axios.get("/getAuthority").then(res => {
-            if (res.data.code === '0') {
-                authorities = res.data.data.filter(item => item.level !== 1);
-                populateRoles(authorities);
-            } else {
-                alert(res.data.msg);
-            }
-        });
-
-        // Populate the role select dropdown with authority data
-        function populateRoles(authorities) {
-            let options = '';
-            authorities.forEach(item => {
-                options += `<option value="${item.level}">${item.name}</option>`;
-            });
-            $('#roleSelect').html(options);
-        }
-
-        // Register user when the button is clicked
-        $('#registerBtn').on('click', function() {
-            const user = {
-                name: $('#username').val(),
-                password: $('#password').val(),
-                newPassword: $('#newPassword').val(),
-                sex: $('input[name="sex"]:checked').val(),
-                level: $('#roleSelect').val()
-            };
-
-            if (!user.name) {
-                alert("请输入用户名");
-                return;
-            }
-            if (!user.password || !user.newPassword) {
-                alert("请输入密码");
-                return;
-            }
-            if (user.password !== user.newPassword) {
-                alert("两次密码输入不一致");
-                return;
-            }
-            if (!user.level) {
-                alert("请选择角色");
-                return;
-            }
-
-            // Send registration data to the backend
-            axios.post('/register', user).then(res => {
+    new Vue({
+        el: "#app",
+        data: {
+            user: {
+                name: "",
+                password: "",
+                newPassword: "",
+                sex: "男",
+                level: 1
+            },
+            authorities: [],
+        },
+        created: function () {
+            axios.get("/getAuthority").then(res => {
                 if (res.data.code === '0') {
-                    localStorage.setItem('user', JSON.stringify(res.data.data));
-                    window.location = '/front/index.html';
+                    let list = res.data.data;
+                    this.authorities = list.filter(item => item.level !== 1);
                 } else {
                     alert(res.data.msg);
                 }
             });
-        });
+        },
+        methods: {
+            register() {
+                if (!this.user.name) {
+                    alert("请输入用户名");
+                    return;
+                }
+                if (!this.user.password || !this.user.newPassword) {
+                    alert("请输入密码");
+                    return;
+                }
+                if (this.user.password !== this.user.newPassword) {
+                    alert("两次密码输入不一致");
+                    return;
+                }
+                if (!this.user.level) {
+                    alert("请选择角色");
+                    return;
+                }
+                axios.post('/register', this.user).then(res => {
+                    if(res.data.code === '0') {
+                        localStorage.setItem('user', JSON.stringify(res.data.data));
+                        window.location = '/front/index.html';
+                    } else {
+                        alert(res.data.msg);
+                    }
+                });
+            }
+        }
     });
 </script>
-
 </body>
 </html>
