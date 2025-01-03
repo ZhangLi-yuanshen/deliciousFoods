@@ -1,23 +1,40 @@
 package com.example.pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class UserInfo {
+import lombok.Getter;
+import lombok.Setter;
 
-  private long id;
+import javax.persistence.*;
+
+@Setter
+@Getter
+@Table(name = "user_info")
+public class UserInfo extends Account {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  @Column(name = "name")
   private String name;
+  @Column(name = "password")
   private String password;
+  @Column(name = "nickName")
   private String nickName;
+  @Column(name = "sex")
   private String sex;
-  private long age;
+  @Column(name = "age")
+  private Integer age;
+  @Column(name = "birthday")
   private String birthday;
+  @Column(name = "phone")
   private String phone;
+  @Column(name = "address")
   private String address;
+  @Column(name = "email")
   private String email;
+  @Column(name = "cardId")
   private String cardId;
-  private long level;
+  @Column(name = "level")
+  private Integer level;
+
+
 }
