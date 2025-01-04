@@ -4,7 +4,7 @@ import cn.hutool.crypto.SecureUtil;
 import com.example.common.ResultCode;
 import com.example.dao.UserInfoDao;
 import com.example.exception.CustomException;
-import com.example.pojo.UserInfo;
+import com.example.entity.UserInfo;
 import com.example.vo.UserInfoVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -29,9 +29,9 @@ public class UserInfoService {
         }
         if (StringUtils.isEmpty(userInfo.getPassword())) {
             // 默认密码123456
-            userInfo.setPassword(SecureUtil.md5("123456"));
+            userInfo.setPassword("123456");
         } else {
-            userInfo.setPassword(SecureUtil.md5(userInfo.getPassword()));
+            userInfo.setPassword(userInfo.getPassword());
         }
         userInfoDao.insertSelective(userInfo);
         return userInfo;

@@ -1,7 +1,7 @@
 package com.example.dao;
 
 
-import com.example.pojo.UserInfo;
+import com.example.entity.UserInfo;
 import com.example.vo.UserInfoVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

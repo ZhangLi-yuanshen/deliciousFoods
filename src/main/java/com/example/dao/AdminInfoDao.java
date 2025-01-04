@@ -1,6 +1,6 @@
 package com.example.dao;
 
-import com.example.pojo.AdminInfo;
+import com.example.entity.AdminInfo;
 import com.example.vo.AdminInfoVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

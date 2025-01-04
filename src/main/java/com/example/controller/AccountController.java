@@ -7,10 +7,11 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.example.common.Result;
 import com.example.common.ResultCode;
+import com.example.entity.AuthorityInfo;
 import com.example.exception.CustomException;
-import com.example.pojo.Account;
-import com.example.pojo.AdminInfo;
-import com.example.pojo.UserInfo;
+import com.example.entity.Account;
+import com.example.entity.AdminInfo;
+import com.example.entity.UserInfo;
 import com.example.service.AdminInfoService;
 import com.example.service.UserInfoService;
 import org.springframework.beans.BeanUtils;
@@ -113,11 +114,11 @@ public class AccountController {
         return Result.success(map);
     }
 
-//    @GetMapping("/getAuthority")
-//    public Result<List<AuthorityInfo>> getAuthorityInfo() {
-//        List<AuthorityInfo> authorityInfoList = JSONUtil.toList(JSONUtil.parseArray(authorityStr), AuthorityInfo.class);
-//        return Result.success(authorityInfoList);
-//    }
+    @GetMapping("/getAuthority")
+    public Result<List<AuthorityInfo>> getAuthorityInfo() {
+        List<AuthorityInfo> authorityInfoList = JSONUtil.toList(JSONUtil.parseArray(authorityStr), AuthorityInfo.class);
+        return Result.success(authorityInfoList);
+    }
 
     /**
     * 获取当前用户所能看到的模块信息
@@ -145,23 +146,23 @@ public class AccountController {
         return Result.success(new ArrayList<>());
     }
 
-//    @GetMapping("/permission/{modelId}")
-//    public Result<List<Integer>> getPermission(@PathVariable Integer modelId, HttpServletRequest request) {
-//        List<AuthorityInfo> authorityInfoList = JSONUtil.toList(JSONUtil.parseArray(authorityStr), AuthorityInfo.class);
-//        Account user = (Account) request.getSession().getAttribute("user");
-//        if (user == null) {
-//            return Result.success(new ArrayList<>());
-//        }
-//        Optional<AuthorityInfo> optional = authorityInfoList.stream().filter(x -> x.getLevel().equals(user.getLevel())).findFirst();
-//        if (optional.isPresent()) {
-//            Optional<AuthorityInfo.Model> firstOption = optional.get().getModels().stream().filter(x -> x.getModelId().equals(modelId)).findFirst();
-//            if (firstOption.isPresent()) {
-//                List<Integer> info = firstOption.get().getOperation();
-//                return Result.success(info);
-//            }
-//        }
-//        return Result.success(new ArrayList<>());
-//    }
+    @GetMapping("/permission/{modelId}")
+    public Result<List<Integer>> getPermission(@PathVariable Integer modelId, HttpServletRequest request) {
+        List<AuthorityInfo> authorityInfoList = JSONUtil.toList(JSONUtil.parseArray(authorityStr), AuthorityInfo.class);
+        Account user = (Account) request.getSession().getAttribute("user");
+        if (user == null) {
+            return Result.success(new ArrayList<>());
+        }
+        Optional<AuthorityInfo> optional = authorityInfoList.stream().filter(x -> x.getLevel().equals(user.getLevel())).findFirst();
+        if (optional.isPresent()) {
+            Optional<AuthorityInfo.Model> firstOption = optional.get().getModels().stream().filter(x -> x.getModelId().equals(modelId)).findFirst();
+            if (firstOption.isPresent()) {
+                List<Integer> info = firstOption.get().getOperation();
+                return Result.success(info);
+            }
+        }
+        return Result.success(new ArrayList<>());
+    }
 
     @PutMapping("/updatePassword")
     public Result updatePassword(@RequestBody Account info, HttpServletRequest request) {
@@ -169,11 +170,11 @@ public class AccountController {
         if (account == null) {
             return Result.error(ResultCode.USER_NOT_EXIST_ERROR.code, ResultCode.USER_NOT_EXIST_ERROR.msg);
         }
-        String oldPassword = SecureUtil.md5(info.getPassword());
+        String oldPassword = info.getPassword();
         if (!oldPassword.equals(account.getPassword())) {
             return Result.error(ResultCode.PARAM_PASSWORD_ERROR.code, ResultCode.PARAM_PASSWORD_ERROR.msg);
         }
-        info.setPassword(SecureUtil.md5(info.getNewPassword()));
+        info.setPassword(info.getNewPassword());
         Integer level = account.getLevel();
 		if (1 == level) {
 			AdminInfo adminInfo = new AdminInfo();

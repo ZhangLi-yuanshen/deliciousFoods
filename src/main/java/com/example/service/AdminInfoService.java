@@ -4,7 +4,7 @@ import cn.hutool.crypto.SecureUtil;
 import com.example.common.ResultCode;
 import com.example.dao.AdminInfoDao;
 import com.example.exception.CustomException;
-import com.example.pojo.AdminInfo;
+import com.example.entity.AdminInfo;
 import com.example.vo.AdminInfoVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -29,9 +29,9 @@ public class AdminInfoService {
         }
         if (StringUtils.isEmpty(adminInfo.getPassword())) {
             // 默认密码123456
-            adminInfo.setPassword(SecureUtil.md5("123456"));
+            adminInfo.setPassword("123456");
         } else {
-            adminInfo.setPassword(SecureUtil.md5(adminInfo.getPassword()));
+            adminInfo.setPassword(adminInfo.getPassword());
         }
         adminInfoDao.insertSelective(adminInfo);
         return adminInfo;

@@ -1,22 +1,22 @@
-package com.example.pojo;
+package com.example.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@Setter
+@Getter
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CollectInfo {
+public class PraiseInfo {
 
+  //
   private long id;
   private String name;
   private String time;
-  private long foodsId;
   private long notesId;
+  private long foodsId;
   private long userId;
   private long level;
+
+
 }
-
-
-
