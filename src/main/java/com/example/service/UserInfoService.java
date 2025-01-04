@@ -68,7 +68,7 @@ public class UserInfoService {
         if (userInfo == null) {
             throw new CustomException(ResultCode.USER_ACCOUNT_ERROR);
         }
-        if (!SecureUtil.md5(password).equalsIgnoreCase(userInfo.getPassword())) {
+        if (!password.equalsIgnoreCase(userInfo.getPassword())) {
             throw new CustomException(ResultCode.USER_ACCOUNT_ERROR);
         }
         return userInfo;

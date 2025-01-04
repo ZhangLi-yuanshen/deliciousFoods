@@ -78,7 +78,7 @@
             user: {
                 name: "",
                 password: "",
-                level: null
+                level: 1
             },
             authorities: [],
         },
@@ -101,10 +101,10 @@
                     alert("请输入密码");
                     return;
                 }
-                if (!this.user.level) {
-                    alert("请选择角色");
-                    return;
-                }
+                // if (!this.user.level) {
+                //     alert("请选择角色");
+                //     return;
+                // }
                 axios.post('/login', this.user).then(res => {
                     if(res.data.code === '0') {
                         localStorage.setItem('user', JSON.stringify(res.data.data));

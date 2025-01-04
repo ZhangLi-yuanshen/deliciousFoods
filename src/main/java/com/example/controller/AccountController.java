@@ -77,14 +77,14 @@ public class AccountController {
         return Result.success();
     }
 
-    @GetMapping("/auth")
-    public Result getAuth(HttpServletRequest request) {
-        Object user = request.getSession().getAttribute("user");
-        if(user == null) {
-            return Result.error("401", "未登录");
-        }
-        return Result.success(user);
-    }
+//    @GetMapping("/auth")
+//    public Result getAuth(HttpServletRequest request) {
+//        Object user = request.getSession().getAttribute("user");
+//        if(user == null) {
+//            return Result.error("401", "未登录");
+//        }
+//        return Result.success(user);
+//    }
 
     @GetMapping("/getAccountInfo")
     public Result<Object> getAccountInfo(HttpServletRequest request) {
@@ -93,10 +93,10 @@ public class AccountController {
             return Result.success(new Object());
         }
         Integer level = account.getLevel();
-		if (1 == level) {
+		if (level == 1) {
 			return Result.success(adminInfoService.findById(account.getId()));
 		}
-		if (2 == level) {
+		if (level == 2) {
 			return Result.success(userInfoService.findById(account.getId()));
 		}
 

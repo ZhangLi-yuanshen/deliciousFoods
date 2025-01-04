@@ -303,10 +303,10 @@
                 });
             },
             add() {
-                if (this.permission.indexOf(1) === -1) {
-                    msg('warning', '你没有权限操作');
-                    return;
-                }
+                // if (this.permission.indexOf(1) === -1) {
+                //     msg('warning', '你没有权限操作');
+                //     return;
+                // }
                 this.entity = {};
                 $('#modal-id').val('');
                 $('#modal-name').val('');
@@ -314,20 +314,20 @@
                 $('#myModal').modal('show');
             },
             edit(data) {
-                if (this.permission.indexOf(3) === -1) {
-                    msg('warning', '你没有权限操作');
-                    return;
-                }
+                // if (this.permission.indexOf(3) === -1) {
+                //     msg('warning', '你没有权限操作');
+                //     return;
+                // }
                 $('#modal-id').val(data.id);
                 $('#modal-name').val(data.name);
                 quill.root.innerHTML = data.content;
                 $('#myModal').modal('show');
             },
             del(id) {
-                if (this.permission.indexOf(2) === -1) {
-                    msg('warning', '你没有权限操作');
-                    return;
-                }
+                // if (this.permission.indexOf(2) === -1) {
+                //     msg('warning', '你没有权限操作');
+                //     return;
+                // }
 
                 this.$confirm('确认删除？', '系统提示', {
                     confirmButtonText: '确定',

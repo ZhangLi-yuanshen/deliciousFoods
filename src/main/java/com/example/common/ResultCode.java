@@ -12,8 +12,8 @@ public enum ResultCode {
     PARAM_PASSWORD_ERROR("2005", "原密码输入错误"),
     ;
 
-    public String code;
-    public String msg;
+    public final String code;
+    public final String msg;
 
     ResultCode(String code, String msg) {
         this.code = code;
