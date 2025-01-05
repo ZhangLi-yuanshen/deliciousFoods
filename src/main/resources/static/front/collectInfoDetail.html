@@ -14,203 +14,247 @@
     <link href="/end/css/quill.snow.css" rel="stylesheet">
 
     <style>
+        [v-cloak] {
+            display: none;
+        }
         .ql-editor img {
             width: 600px;
         }
     </style>
+
 </head>
 <body>
-<div id="wrapper">
+<div id="wrapper" v-cloak>
     <div class="container">
         <!-- 头部开始 -->
         <div class="nx-header">
             <div style="display: flex;width: 100%; height: 30px; line-height: 30px; background-color: #eee;">
+
                 <div style="flex: 5; text-align: right">
-                    <span id="user-welcome"></span>
-                    <a id="login-link" href="/end/page/login.html" target="_blank" style="margin-right: 10px; color: #666666">登录</a>
+                    <span v-if="user.name">
+                    欢迎您，{{user.name}}
+                    <a style="margin-right: 50px; color: blue" href="javascript:void(0)" @click="logout">退出</a>
+                    </span>
+                    <a v-if="!(user.name)" href="/end/page/login.html" target="_blank" style="margin-right: 10px; color: #666666">登录</a>
                     <a href="/end/page/register.html" target="_blank" style="margin-right: 30px; color: #666666">注册</a>
                 </div>
             </div>
+
 
             <div>
                 <ul style="display: flex; background-color: orange; height: 30px">
                     <li class="nav-item"><a href="index.html">首页</a></li>
                     <li class="nav-item"><a href="advertiserInfo.html">系统公告</a></li>
-                    <li class="nav-item"><a href="foodsMenuInfo.html">菜谱</a></li>
-                    <li class="nav-item"><a class="active" href="collectInfo.html">收藏</a></li>
-                    <li class="nav-item"><a href="notesInfo.html">笔记</a></li>
-                    <li class="nav-item"><a href="newsInfo.html">饮食资讯</a></li>
-                    <li class="nav-item"><a href="messageInfo.html">趣味答题</a></li>
+					<li class="nav-item"><a href="foodsMenuInfo.html">菜谱</a></li>
+<!--					<li class="nav-item"><a href="foodsMaterialInfo.html">食材</a></li>-->
+					<li class="nav-item"><a class="active" href="collectInfo.html">收藏</a></li>
+					<li class="nav-item"><a href="notesInfo.html">笔记</a></li>
+					<li class="nav-item"><a href="newsInfo.html">饮食资讯</a></li>
+					<li class="nav-item"><a href="messageInfo.html">趣味答题</a></li>
+
+                    <li v-if="isShow" class="nav-item"><a href="/end/page/index.html" target="_blank">进入后台系统</a></li>
                 </ul>
             </div>
+
         </div>
         <!-- 头部结束 -->
     </div>
-
     <div class="container" style="margin-top: 10px">
         <div class="info">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="panel panel-default">
                         <div class="panel-body bg-gray">
-                            <div class="row p-10" style="margin-bottom: 10px">
-                                <div class="col-md-2">名称：</div>
-                                <div class="col-md-10" id="collect-name"></div>
-                            </div>
-                            <div class="row p-10" style="margin-bottom: 10px">
-                                <div class="col-md-2">时间：</div>
-                                <div class="col-md-10" id="collect-time"></div>
-                            </div>
+							<div class="row p-10" style="margin-bottom: 10px">
+								<div class="col-md-2">名称：</div>
+								<div class="col-md-10">{{ obj.name }}</div>
+							</div>
+							<div class="row p-10" style="margin-bottom: 10px">
+								<div class="col-md-2">时间：</div>
+								<div class="col-md-10">{{ obj.time }}</div>
+							</div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!--richtext
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="ql-editor panel-body" id="view-notice-body">
 
-        <!-- 评论部分 -->
-        <div class="comment" id="comment-section">
+                    </div>
+                </div>
+            </div>
+        </div>
+        richText-->
+        <!-- /. 表单数据 -->
+
+        <div class="comment" v-if="isComment">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <h2>评论</h2>
                 </div>
             </div>
 
+
             <div class="comment-item">
+                <!--                <div class="row mt-10">-->
+                <!--                    <div class="col-md-8 col-md-offset-2" style="font-size: 20px; font-weight: bold">admin</div>-->
+                <!--                </div>-->
                 <div class="row mt-10">
                     <div class="col-md-8 col-md-offset-2" style="text-align: justify">
-                        <textarea id="comment-text" style="resize:none; width: 100%" rows="3"></textarea>
+                        <textarea style="resize:none; width: 100%" rows="3" v-model="comment.content"></textarea>
                     </div>
                 </div>
                 <div class="row mt-10">
                     <div class="col-md-8 col-md-offset-2" style="text-align: right;">
-                        <button id="send-comment" class="btn btn-primary f-r">发送</button>
+                        <button class="btn btn-primary f-r" @click="add()">发送</button>
                         <hr>
                     </div>
                 </div>
             </div>
 
-            <div id="comments-list"></div>
+
+            <div class="comment-item" v-for="item in comments">
+                <div class="row mt-10">
+                    <div class="col-md-8 col-md-offset-2" style="font-size: 20px; font-weight: bold">{{ item.name }}
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-8 col-md-offset-2" style="text-align: justify">
+                        {{ item.content }}
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-8 col-md-offset-2" style="text-align: right;">
+                        <span style="color: #888888">{{ item.time }}</span>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
-
 <script src="js/jquery-1.10.2.js"></script>
+<script src="js/vue2.6.11/vue.min.js"></script>
 <script src="js/vue2.6.11/axios.js"></script>
 <script src="/end/js/quill.js"></script>
 
 <script>
-    $(document).ready(function() {
-        var user = null;
-        var collectId = getQueryVariable('id');
-        var fileSrc = '';
-        var comments = [];
 
-        function getQueryVariable(key) {
-            var query = window.location.search.substring(1);
-            var vars = query.split("&");
-            for (var i = 0; i < vars.length; i++) {
-                var pair = vars[i].split("=");
-                if (pair[0] === key) {
-                    return pair[1];
-                }
-            }
-            return '';
-        }
-
-        // 获取用户信息
-        function loadUserInfo() {
+    new Vue({
+        el: '#wrapper',
+        data: {
+            imgWidth: '0px',
+            comments: [],
+            content: '',
+            obj: {},
+            isComment: false,
+            comment: {
+                content: '',
+                foreignId: 0
+            },
+            fileSrc: '',
+            user: {},
+            isShow: false
+        },
+        created() {
             axios.get('/auth').then(res => {
                 if (res.data.code === '0') {
-                    user = res.data.data;
-                    if (user.name) {
-                        $('#user-welcome').text('欢迎您，' + user.name);
-                        $('#login-link').hide();
+                    this.user = res.data.data;
+                    if (this.user.level !== 3) {
+                        this.isShow = true;
                     }
                 }
             });
-        }
 
-        // 获取收藏详情
-        function loadCollectInfo() {
-            if (collectId !== '0') {
-                axios.get('/collectInfo/' + collectId).then(res => {
+            let id = this.getQueryVariable('id');
+            this.comment.foreignId = id;
+            if (id !== 0) {
+                axios.get('/collectInfo/' + id).then(res => {
                     if (res.data.code === '0') {
-                        var obj = res.data.data;
-                        $('#collect-name').text(obj.name);
-                        $('#collect-time').text(obj.time);
-
+                        let obj = res.data.data;
+                        this.obj = obj;
                         if (obj.fileName) {
-                            fileSrc = '/files/download/' + obj.fileId;
-                            var img = new Image();
-                            img.src = fileSrc;
-                            img.onload = function() {
-                                var imgWidth = img.width > 590 ? "100%" : img.width + "px";
-                                $('#file-container').html('<img src="' + fileSrc + '" style="width: ' + imgWidth + '">');
+                            if (/\.(png|jpg|gif|jpeg|webp)$/.test(obj.fileName)) {
+                                this.obj.fileType = 'image';
+                            } else if (/\.mp4$/.test(obj.fileName)) {
+                                this.obj.fileType = 'video';
+                            } else {
+                                this.obj.fileType = 'other';
+                            }
+                            this.fileSrc = '/files/download/' + obj.fileId;
+
+                            let img = new Image();
+                            img.src = this.fileSrc;
+                            let _this = this;
+                            img.onload = function(){
+                                if (img.width > 590) {
+                                    _this.imgWidth = "100%";
+                                } else {
+                                    _this.imgWidth = img.width + "px";
+                                }
                             };
                         }
+                        /*richText
+                        $('#view-notice-body').html(obj.content);
+                        richText*/
+                    } else {
+                        alert(res.data.msg)
+                    }
+                });
+                this.loadComments(id);
+            }
+        },
+        methods: {
+            add() {
+                if (this.comment.content === '') {
+                    return;
+                }
+                axios.post('/collectInfoComment', this.comment).then(res => {
+                    if (res.data.code === '0') {
+                        this.comment.content = '';
+                        this.loadComments(this.comment.foreignId);
                     } else {
                         alert(res.data.msg);
                     }
-                });
+                })
+            },
+            loadComments(id) {
+                axios.get('/collectInfoComment/findByForeignId/' + id).then(res => {
+                    if (res.data.code === '0') {
+                        this.comments = res.data.data;
+                    } else {
+                        alert(res.data.msg)
+                    }
+                })
+            },
+            getQueryVariable(key) {
+                let query = window.location.search.substring(1);
+                let vars = query.split("&");
+                for (let i = 0; i < vars.length; i++) {
+                    let pair = vars[i].split("=");
+                    if (pair[0] === key) {
+                        return pair[1];
+                    }
+                }
+                return '';
+            },
+            logout() {
+                axios.get("/logout").then(res => {
+                    if(res.data.code === '0') {
+                        location.href = '/front/index.html';
+                    } else {
+                        msg('error', res.data.msg);
+                    }
+                })
             }
         }
-
-        // 加载评论
-        function loadComments() {
-            axios.get('/collectInfoComment/findByForeignId/' + collectId).then(res => {
-                if (res.data.code === '0') {
-                    comments = res.data.data;
-                    var commentHtml = '';
-                    comments.forEach(function(item) {
-                        commentHtml += `
-                            <div class="comment-item">
-                                <div class="row mt-10">
-                                    <div class="col-md-8 col-md-offset-2" style="font-size: 20px; font-weight: bold">${item.name}</div>
-                                </div>
-                                <div class="row mt-10">
-                                    <div class="col-md-8 col-md-offset-2" style="text-align: justify">${item.content}</div>
-                                </div>
-                                <div class="row mt-10">
-                                    <div class="col-md-8 col-md-offset-2" style="text-align: right;">
-                                        <span style="color: #888888">${item.time}</span>
-                                        <hr>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    });
-                    $('#comments-list').html(commentHtml);
-                } else {
-                    alert(res.data.msg);
-                }
-            });
-        }
-
-        // 添加评论
-        $('#send-comment').click(function() {
-            var commentContent = $('#comment-text').val();
-            if (commentContent === '') return;
-
-            var comment = {
-                content: commentContent,
-                foreignId: collectId
-            };
-
-            axios.post('/collectInfoComment', comment).then(res => {
-                if (res.data.code === '0') {
-                    $('#comment-text').val('');
-                    loadComments();
-                } else {
-                    alert(res.data.msg);
-                }
-            });
-        });
-
-        // 初始化
-        loadUserInfo();
-        loadCollectInfo();
-        loadComments();
-    });
+    })
 </script>
 </body>
 </html>
