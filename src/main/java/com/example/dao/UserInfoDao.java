@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface UserInfoDao extends Mapper<UserInfo> {
     List<UserInfoVo> findByName(@Param("name") String name);
-    
+
     int checkRepeat(String column, String value, Long id);
     UserInfoVo findByUsername(String username);
     Integer count();
