@@ -27,13 +27,19 @@ public class NewsInfoService {
         return PageInfo.of(all);
     }
 //删除
-    public void delete(Long id) {
-        newsInfoDao.deleteByPrimaryKey(id);
+    public void delete(Long id){
+        newsInfoDao.deleteById(id);
     }
+//    public void delete(Long id) {
+//        newsInfoDao.deleteByPrimaryKey(id);
+//    }
 //编辑
-    public void update(NewsInfo newsInfo) {
-        newsInfoDao.updateByPrimaryKeySelective(newsInfo);
+    public void update(NewsInfoVo newsInfo) {
+        newsInfoDao.updateById(newsInfo);
     }
+//    public void update(NewsInfo newsInfo) {
+//        newsInfoDao.updateByPrimaryKeySelective(newsInfo);
+//    }
 //根据name查询
     public NewsInfo findById(Long id) {
         return newsInfoDao.selectByPrimaryKey(id);
