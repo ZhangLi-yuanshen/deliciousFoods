@@ -67,7 +67,6 @@ public class AccountController {
 			BeanUtils.copyProperties(account, info);
 			login = userInfoService.add(info);
 		}
-
         return Result.success(login);
     }
 

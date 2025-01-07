@@ -21,4 +21,19 @@
     <select id="count" resultType="Integer">
         select count(id) from `news_info`
     </select>
+<!--    删除-->
+    <delete id="deleteById">
+        delete from `news_info` where id = #{id}
+    </delete>
+<!--    编辑-->
+    <update id="updateById">
+        update `news_info` set
+        <if test="name != null and name != ''">
+            `name` = #{name},
+    </if>
+        <if test="content != null and content != ''">
+            `content` = #{content},
+</if>
+    </update>
+
     </mapper>

@@ -21,4 +21,8 @@
     <select id="count" resultType="Integer">
         select count(id) from `advertiser_info`
     </select>
+<!--    删除-->
+    <delete id="deleteById">
+        delete from `advertiser_info` where id = #{id}
+    </delete>
 </mapper>
