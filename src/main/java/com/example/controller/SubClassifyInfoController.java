@@ -29,10 +29,10 @@ public class SubClassifyInfoController
     /**
      * 查询菜谱小类信息列表
      */
-    @GetMapping()
+    @GetMapping("/page")
     @ResponseBody
     public Result<PageInfo<SubClassifyInfo>>  list(@RequestParam(defaultValue = "1") Integer pageNum,
-                                                   @RequestParam(defaultValue = "5") Integer pageSize,
+                                                   @RequestParam(defaultValue = "10") Integer pageSize,
                                                    SubClassifyInfo subClassifyInfo)
     {
         return Result.success(subClassifyInfoService.selectSubClassifyInfoList(pageNum, pageSize,subClassifyInfo));
@@ -72,4 +72,6 @@ public class SubClassifyInfoController
     {
         return Result.success(subClassifyInfoService.deleteSubClassifyInfoById(id));
     }
+
+
 }

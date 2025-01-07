@@ -3,6 +3,8 @@ package com.example.service;
 import com.example.entity.ClassifyInfo;
 import com.github.pagehelper.PageInfo;
 
+import java.io.InputStream;
+
 /**
  * 菜谱大类信息Service接口
  *
@@ -52,4 +54,10 @@ public interface ClassifyInfoService
      * @return 结果
      */
     public int deleteClassifyInfoById(Long id);
+    /**
+     * 导入数据
+     * @param inputStream
+     * @return void
+     */
+    void importExcelData(InputStream inputStream);
 }

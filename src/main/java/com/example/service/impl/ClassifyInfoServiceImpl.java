@@ -1,5 +1,8 @@
 package com.example.service.impl;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.example.dao.ClassifyInfoDao;
@@ -7,6 +10,11 @@ import com.example.entity.ClassifyInfo;
 import com.example.service.ClassifyInfoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -85,5 +93,41 @@ public class ClassifyInfoServiceImpl implements ClassifyInfoService
     public int deleteClassifyInfoById(Long id)
     {
         return classifyInfoDao.deleteClassifyInfoById(id);
+    }
+
+    @Override
+    public void importExcelData(InputStream inputStream) {
+        try (Workbook workbook = new XSSFWorkbook(inputStream);){
+              // 创建 Excel 工作簿对象
+            Sheet sheet = workbook.getSheetAt(0);  // 获取第一个 sheet 页
+            Iterator<Row> rowIterator = sheet.iterator();  // 获取行的迭代器
+
+            List<ClassifyInfo> menuCategories = new ArrayList<>();
+
+            // 跳过标题行
+            if (rowIterator.hasNext()) {
+                rowIterator.next();  // 跳过标题行
+            }
+
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+                Cell nameCell = row.getCell(0); // name 列（假设在第 0 列）
+                Cell codeCell = row.getCell(1); // code 列（假设在第 1 列）
+
+                if (nameCell != null && codeCell != null) {
+                    ClassifyInfo category = new ClassifyInfo();
+                    category.setName(nameCell.getStringCellValue());  // 获取 name 字段
+                    category.setDescroiption(codeCell.getStringCellValue());  // 获取 code 字段
+                    menuCategories.add(category);
+                }
+            }
+
+            // 保存到数据库
+            for(ClassifyInfo category : menuCategories){
+                classifyInfoDao.insertClassifyInfo(category);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
