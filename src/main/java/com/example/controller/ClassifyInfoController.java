@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 
 
 /**
@@ -45,6 +46,16 @@ public class ClassifyInfoController
                                                ClassifyInfo classifyInfo)
     {
        return Result.success(classifyInfoService.selectClassifyInfoList(pageNum, pageNum,classifyInfo));
+    }
+
+    /**
+     * 查询菜谱大类信息列表
+     */
+    @GetMapping("")
+    @ResponseBody
+    public Result<List<ClassifyInfo>> all()
+    {
+        return Result.success(classifyInfoService.all( null));
     }
 
 
@@ -104,8 +115,8 @@ public class ClassifyInfoController
                 .contentType(MediaType.APPLICATION_OCTET_STREAM) // 指定为下载文件
                 .body(resource);
     }
-    @PostMapping("/upload")
     @ResponseBody
+    @PostMapping("/upload")
     public Result uploadExcelFile(@RequestParam("file") MultipartFile file) {
         try {
             // 调用服务类处理文件

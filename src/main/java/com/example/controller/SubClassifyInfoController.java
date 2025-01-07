@@ -29,7 +29,7 @@ public class SubClassifyInfoController
     /**
      * 查询菜谱小类信息列表
      */
-    @GetMapping("/page")
+    @GetMapping("/page/all")
     @ResponseBody
     public Result<PageInfo<SubClassifyInfo>>  list(@RequestParam(defaultValue = "1") Integer pageNum,
                                                    @RequestParam(defaultValue = "10") Integer pageSize,

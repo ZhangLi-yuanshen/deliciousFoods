@@ -2,6 +2,7 @@ package com.example.service.impl;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -129,5 +130,10 @@ public class ClassifyInfoServiceImpl implements ClassifyInfoService
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public List<ClassifyInfo> all(ClassifyInfo classifyInfo) {
+        return classifyInfoDao.selectClassifyInfoList(classifyInfo);
     }
 }
