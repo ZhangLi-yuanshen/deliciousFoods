@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.MessageInfoDao">
+<!--    <insert id="add">-->
+<!--        insert into `message_info` (`name`, `content`, `time`)-->
+<!--        values (#{name}, #{content}, #{time})-->
+<!--    </insert>-->
+    <!-- 自定义删除 SQL -->
+    <delete id="deleteById">
+        DELETE FROM message_info WHERE id = #{id}
+    </delete>
+
+    <select id="findByName" resultType="com.example.vo.MessageInfoVo">
+        select `message_info`.* from `message_info`
+
+        where 1 = 1
+        <if test="name != null and name != '' and name != 'all'">
+            and `message_info`.`name` like concat('%', #{name}, '%')
+        </if>
+        order by `message_info`.id
+    </select>
+    <select id="findVoById" resultType="com.example.vo.MessageInfoVo">
+        select `message_info`.* from `message_info`
+
+        where `message_info`.id = #{id}
+    </select>
+    <select id="count" resultType="Integer">
+        select count(id) from `message_info`
+    </select>
+    <select id="checkRepeat" resultType="java.lang.Integer">
+        select count(id) from `message_info` where `message_info`.`name` = #{name}
+    </select>
+    <update id="updateByMessage" parameterType="com.example.vo.MessageInfoVo">
+        UPDATE message_info
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="time != null">time = #{time},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+</mapper>
