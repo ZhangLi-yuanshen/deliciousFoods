@@ -77,14 +77,14 @@ public class AccountController {
         return Result.success();
     }
 
-//    @GetMapping("/auth")
-//    public Result getAuth(HttpServletRequest request) {
-//        Object user = request.getSession().getAttribute("user");
-//        if(user == null) {
-//            return Result.error("401", "未登录");
-//        }
-//        return Result.success(user);
-//    }
+    @GetMapping("/auth")
+    public Result getAuth(HttpServletRequest request) {
+        Object user = request.getSession().getAttribute("user");
+        if(user == null) {
+            return Result.error("401", "未登录");
+        }
+        return Result.success(user);
+    }
 
     @GetMapping("/getAccountInfo")
     public Result<Object> getAccountInfo(HttpServletRequest request) {
