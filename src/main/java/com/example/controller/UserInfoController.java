@@ -37,7 +37,7 @@ public class UserInfoController {
         userInfoService.update(userInfo);
         return Result.success();
     }
-    //id查询用户
+    //检查
     @GetMapping("/{id}")
     public Result<UserInfo> detail(@PathVariable Long id) {
         UserInfo userInfo = userInfoService.findById(id);
