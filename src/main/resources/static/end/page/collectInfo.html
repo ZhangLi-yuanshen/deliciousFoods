@@ -58,51 +58,51 @@
                 <li>
                     <a href="#"><i class="fa fa-yelp "></i>信息展示 <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse in">
-						<li v-if="authority.indexOf(1) != -1">
-							<a href="adminInfo.html"><i class="fa fa-table"></i>管理员信息</a>
-						</li>
-						<li v-if="authority.indexOf(2) != -1">
-							<a href="userInfo.html"><i class="fa fa-table"></i>用户信息</a>
-						</li>
-						<li v-if="authority.indexOf(3) != -1">
-							<a href="classifyInfo.html"><i class="fa fa-table"></i>菜谱大类信息</a>
-						</li>
-						<li v-if="authority.indexOf(4) != -1">
-							<a href="subClassifyInfo.html"><i class="fa fa-table"></i>菜谱小类信息</a>
-						</li>
-						<li v-if="authority.indexOf(5) != -1">
-							<a href="foodsMenuInfo.html"><i class="fa fa-table"></i>菜谱信息</a>
-						</li>
-						<li v-if="authority.indexOf(6) != -1">
-							<a href="foodsMaterialInfo.html"><i class="fa fa-table"></i>食材信息</a>
-						</li>
-						<li v-if="authority.indexOf(7) != -1">
-							<a href="collectInfo.html" class="active-menu"><i class="fa fa-table"></i>收藏信息</a>
-						</li>
-						<li v-if="authority.indexOf(8) != -1">
-							<a href="praiseInfo.html"><i class="fa fa-table"></i>笔记点赞信息</a>
-						</li>
-						<li v-if="authority.indexOf(9) != -1">
-							<a href="notesInfo.html"><i class="fa fa-table"></i>笔记信息</a>
-						</li>
-						<li v-if="authority.indexOf(10) != -1">
-							<a href="newsInfo.html"><i class="fa fa-table"></i>饮食资讯信息</a>
-						</li>
-						<li v-if="authority.indexOf(1000001) != -1">
-							<a href="advertiserInfo.html"><i class="fa fa-table"></i>公告信息</a>
-						</li>
-						<li v-if="authority.indexOf(1000002) != -1">
-							<a href="messageInfo.html"><i class="fa fa-table"></i>趣味答题信息</a>
-						</li>
+                        <li v-if="authority.indexOf(1) != -1">
+                            <a href="adminInfo.html"><i class="fa fa-table"></i>管理员信息</a>
+                        </li>
+                        <li v-if="authority.indexOf(2) != -1">
+                            <a href="userInfo.html"><i class="fa fa-table"></i>用户信息</a>
+                        </li>
+                        <li v-if="authority.indexOf(3) != -1">
+                            <a href="classifyInfo.html"><i class="fa fa-table"></i>菜谱大类信息</a>
+                        </li>
+                        <li v-if="authority.indexOf(4) != -1">
+                            <a href="subClassifyInfo.html"><i class="fa fa-table"></i>菜谱小类信息</a>
+                        </li>
+                        <li v-if="authority.indexOf(5) != -1">
+                            <a href="foodsMenuInfo.html"><i class="fa fa-table"></i>菜谱信息</a>
+                        </li>
+                        <li v-if="authority.indexOf(6) != -1">
+                            <a href="foodsMaterialInfo.html"><i class="fa fa-table"></i>食材信息</a>
+                        </li>
+                        <li v-if="authority.indexOf(7) != -1">
+                            <a href="collectInfo.html" class="active-menu"><i class="fa fa-table"></i>收藏信息</a>
+                        </li>
+                        <li v-if="authority.indexOf(8) != -1">
+                            <a href="praiseInfo.html"><i class="fa fa-table"></i>笔记点赞信息</a>
+                        </li>
+                        <li v-if="authority.indexOf(9) != -1">
+                            <a href="notesInfo.html"><i class="fa fa-table"></i>笔记信息</a>
+                        </li>
+                        <li v-if="authority.indexOf(10) != -1">
+                            <a href="newsInfo.html"><i class="fa fa-table"></i>饮食资讯信息</a>
+                        </li>
+                        <li v-if="authority.indexOf(1000001) != -1">
+                            <a href="advertiserInfo.html"><i class="fa fa-table"></i>公告信息</a>
+                        </li>
+                        <li v-if="authority.indexOf(1000002) != -1">
+                            <a href="messageInfo.html"><i class="fa fa-table"></i>趣味答题信息</a>
+                        </li>
 
                         <li>
                             <a href="javascript:void(0)" @click="personalPage"><i class="fa fa-user"></i>个人信息</a>
                         </li>
                     </ul>
                 </li>
-				<li>
-					<a href="notesInfoComment.html"><i class="fa fa-file"></i>笔记信息评论</a>
-				</li>
+                <li>
+                    <a href="notesInfoComment.html"><i class="fa fa-file"></i>笔记信息评论</a>
+                </li>
 
                 <li>
                     <a href="updatePassword.html"><i class="fa fa-unlock-alt"></i>修改密码</a>
@@ -138,9 +138,9 @@
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-										<th>名称</th>
-										<th>时间</th>
-										<th>名称</th>
+                                        <th>名称</th>
+                                        <th>时间</th>
+                                        <th>名称</th>
 
                                         <th>操作</th>
                                     </tr>
@@ -148,9 +148,9 @@
                                     <tbody v-for="obj in objs">
                                     <tr>
                                         <td>{{obj.id}}</td>
-										<td>{{obj.name}}</td>
-										<td>{{obj.time}}</td>
-										<td>{{obj.foodsName}}</td>
+                                        <td>{{obj.name}}</td>
+                                        <td>{{obj.time}}</td>
+                                        <td>{{obj.foodsName}}</td>
 
                                         <td>
                                             <button class="btn btn-primary btn-xs" v-on:click="init(obj)">编辑</button>
@@ -199,28 +199,28 @@
                 <div class="modal-body">
                     <form class="form-horizontal">
                         <input type="hidden" id="id" name="id" v-model="entity.id">
-						<div class="form-group">
-							<label class="col-sm-3 control-label">名称</label>
-							<div class="col-sm-7">
-								<input type="text" class="form-control" v-model="entity.name" placeholder="请输入名称" id="name">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label">时间</label>
-							<div class="col-sm-7">
-								<div class="block">
-									<el-date-picker v-model="entity.time" id="time" type="datetime" clearable value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间"></el-date-picker>
-								</div>
-							</div>
-						</div>
-						<div class="form-group" >
-							<label class="col-sm-3 control-label">关联菜谱</label>
-							<div class="col-sm-7">
-								<select class="form-control" v-model="entity.foodsId">
-									<option v-for="item in foodsObjs" :value="item.id" name="foodsId">{{item.name}}</option>
-								</select>
-							</div>
-						</div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">名称</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" v-model="entity.name" placeholder="请输入名称" id="name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">时间</label>
+                            <div class="col-sm-7">
+                                <div class="block">
+                                    <el-date-picker v-model="entity.time" id="time" type="datetime" clearable value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间"></el-date-picker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-sm-3 control-label">关联菜谱</label>
+                            <div class="col-sm-7">
+                                <select class="form-control" v-model="entity.foodsId">
+                                    <option v-for="item in foodsObjs" :value="item.id" name="foodsId">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
 
                     </form>
                 </div>
@@ -256,7 +256,7 @@
     new Vue({
         el: '#wrapper',
         data: {
-			foodsObjs: [],
+            foodsObjs: [],
 
             authority: [],
             permission: [],
@@ -294,14 +294,14 @@
                 }
             });
 
-			this.entity.foodsId = 0;
-			axios.get("/foodsMenuInfo").then(res => {
-				if (res.data.code === '0') {
-					this.foodsObjs = res.data.data;
-				} else {
-					msg('error', res.data.msg);
-				}
-			});
+            this.entity.foodsId = 0;
+            axios.get("/foodsMenuInfo").then(res => {
+                if (res.data.code === '0') {
+                    this.foodsObjs = res.data.data;
+                } else {
+                    msg('error', res.data.msg);
+                }
+            });
 
         },
         methods: {

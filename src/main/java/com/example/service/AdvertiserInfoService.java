@@ -27,8 +27,11 @@ public class AdvertiserInfoService {
     }
     //删除
     public void delete(Long id) {
-        advertiserInfoDao.deleteByPrimaryKey(id);
+        advertiserInfoDao.deleteById(id);
     }
+//    public void delete(Long id) {
+//        advertiserInfoDao.deleteByPrimaryKey(id);
+//    }
     //编辑
     public void update(AdvertiserInfo advertiserInfo) {
         advertiserInfo.setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));

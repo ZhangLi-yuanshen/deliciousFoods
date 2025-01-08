@@ -17,4 +17,8 @@ public interface NewsInfoDao extends Mapper<NewsInfo> {
     //查询
     NewsInfoVo findByNewsName(String NewsName);
     Integer count();
+    //删除
+    Integer deleteById(Long id);
+    //编辑
+    Integer updateById(NewsInfoVo newsInfo);
 }
