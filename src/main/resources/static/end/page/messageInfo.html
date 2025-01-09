@@ -313,18 +313,18 @@
                 });
             },
             init(o) {
-                // if (this.permission.indexOf(3) === -1) {
-                //     msg('warning', '你没有权限操作');
-                //     return;
-                // }
+                if (this.permission.indexOf(3) === -1) {
+                    msg('warning', '你没有权限操作');
+                    return;
+                }
                 this.entity = JSON.parse(JSON.stringify(o));
                 $('#mod').modal('show');
             },
             add() {
-                // if (this.permission.indexOf(1) === -1) {
-                //     msg('warning', '你没有权限操作');
-                //     return;
-                // }
+                if (this.permission.indexOf(1) === -1) {
+                    msg('warning', '你没有权限操作');
+                    return;
+                }
                 this.entity = {sex:'男'};
                 $('#mod').modal('show');
             },
@@ -358,10 +358,10 @@
                 }
             },
             del(id) {
-                // if (this.permission.indexOf(2) === -1) {
-                //     msg('warning', '你没有权限操作');
-                //     return;
-                // }
+                if (this.permission.indexOf(2) === -1) {
+                    msg('warning', '你没有权限操作');
+                    return;
+                }
                 let _this = this;
                 this.$confirm('确认删除？', '系统提示', {
                     confirmButtonText: '确定',
@@ -385,10 +385,10 @@
                 location.href = '/messageInfo/getExcelModel';
             },
             clickUpload: function (e) {
-                // if (this.permission.indexOf(1) === -1) {
-                //     msg('warning', '你没有权限操作');
-                //     e.preventDefault();
-                // }
+                if (this.permission.indexOf(1) === -1) {
+                    msg('warning', '你没有权限操作');
+                    e.preventDefault();
+                }
             },
             upload: function () {
                 let files = this.$refs.file.files;

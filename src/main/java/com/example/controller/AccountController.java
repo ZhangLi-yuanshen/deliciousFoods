@@ -116,6 +116,7 @@ public class AccountController {
     @GetMapping("/getAuthority")
     public Result<List<AuthorityInfo>> getAuthorityInfo() {
         List<AuthorityInfo> authorityInfoList = JSONUtil.toList(JSONUtil.parseArray(authorityStr), AuthorityInfo.class);
+        System.out.println("Authority Info: " + authorityInfoList);  // 增加日志输出
         return Result.success(authorityInfoList);
     }
 

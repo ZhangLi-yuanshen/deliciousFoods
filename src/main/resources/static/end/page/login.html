@@ -78,7 +78,7 @@
             user: {
                 name: "",
                 password: "",
-                level: 1
+                level: ""
             },
             authorities: [],
         },
@@ -108,7 +108,7 @@
                 axios.post('/login', this.user).then(res => {
                     if(res.data.code === '0') {
                         localStorage.setItem('user', JSON.stringify(res.data.data));
-                        window.location = '/front/index.html';
+                        window.location = '/end/page/index.html';
                     } else {
                         alert(res.data.msg);
                     }
