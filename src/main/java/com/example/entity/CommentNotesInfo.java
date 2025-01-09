@@ -15,6 +15,7 @@ public class CommentNotesInfo {
     private String content;
     private String time;
     private String name;
+    @Column(name = "foreignId")
     private Integer foreignId;
 
 
