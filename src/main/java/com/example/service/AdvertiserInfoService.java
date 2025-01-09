@@ -3,9 +3,12 @@ package com.example.service;
 import com.example.dao.AdvertiserInfoDao;
 import com.example.entity.AdvertiserInfo;
 import com.example.vo.AdvertiserInfoVo;
+import com.example.vo.MessageInfoVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -33,10 +36,11 @@ public class AdvertiserInfoService {
 //        advertiserInfoDao.deleteByPrimaryKey(id);
 //    }
     //编辑
-    public void update(AdvertiserInfo advertiserInfo) {
-        advertiserInfo.setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-        advertiserInfoDao.updateByPrimaryKeySelective(advertiserInfo);
-    }
+@PutMapping("/updateById")
+public String updateById(@RequestBody AdvertiserInfoVo advertiserInfoVo) {
+    advertiserInfoDao.updateById(advertiserInfoVo);
+    return "更新成功";
+}
     //根据name查询
     public AdvertiserInfo findById(Long id) {
         return advertiserInfoDao.selectByPrimaryKey(id);

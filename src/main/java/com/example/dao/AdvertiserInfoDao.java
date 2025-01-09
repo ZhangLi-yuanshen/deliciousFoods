@@ -20,4 +20,6 @@ public interface AdvertiserInfoDao extends Mapper<AdvertiserInfo> {
     Integer count();
     //删除
     int deleteById(Long id);
+    //编辑
+    int updateById(AdvertiserInfoVo advertiserInfoVo);
 }
