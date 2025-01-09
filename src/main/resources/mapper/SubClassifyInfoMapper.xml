@@ -28,6 +28,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectSubClassifyInfoVo"/>
         where id = #{id}
     </select>
+    <select id="findAll" resultType="com.example.vo.SubClassifyInfoVo">
+        select `sub_classify_info`.* from `sub_classify_info`
+
+        where 1 = 1
+        <if test="name != null and name != '' and name != 'all'">
+            and `sub_classify_info`.`name` like concat('%', #{name}, '%')
+        </if>
+        order by `sub_classify_info`.id
+    </select>
 
     <insert id="insertSubClassifyInfo" parameterType="SubClassifyInfo" useGeneratedKeys="true" keyProperty="id">
         insert into sub_classify_info

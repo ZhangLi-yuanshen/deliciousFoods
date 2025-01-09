@@ -1,7 +1,9 @@
 package com.example.dao;
 
 
+import com.example.entity.ClassifyInfo;
 import com.example.entity.SubClassifyInfo;
+import com.example.vo.SubClassifyInfoVo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -54,6 +56,7 @@ public interface SubClassifyInfoDao
      * @return 结果
      */
     public int deleteSubClassifyInfoById(Long id);
+    List<SubClassifyInfoVo> findAll();
 
 
 }

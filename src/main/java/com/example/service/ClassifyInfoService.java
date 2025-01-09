@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.entity.ClassifyInfo;
+import com.example.vo.ClassifyInfoVo;
 import com.github.pagehelper.PageInfo;
 
 import java.io.InputStream;
@@ -63,4 +64,5 @@ public interface ClassifyInfoService
     void importExcelData(InputStream inputStream);
 
     List<ClassifyInfo> all(ClassifyInfo classifyInfo);
+    List<ClassifyInfoVo> findAll();
 }

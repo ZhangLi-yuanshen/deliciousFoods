@@ -2,13 +2,13 @@ package com.example.service.impl;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import com.example.dao.ClassifyInfoDao;
 import com.example.entity.ClassifyInfo;
 import com.example.service.ClassifyInfoService;
+import com.example.vo.ClassifyInfoVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.poi.ss.usermodel.Cell;
@@ -31,7 +31,6 @@ public class ClassifyInfoServiceImpl implements ClassifyInfoService
 {
     @Autowired
     private ClassifyInfoDao classifyInfoDao;
-
     /**
      * 查询菜谱大类信息
      *
@@ -135,5 +134,10 @@ public class ClassifyInfoServiceImpl implements ClassifyInfoService
     @Override
     public List<ClassifyInfo> all(ClassifyInfo classifyInfo) {
         return classifyInfoDao.selectClassifyInfoList(classifyInfo);
+    }
+
+    @Override
+    public List<ClassifyInfoVo> findAll() {
+        return classifyInfoDao.findAll();
     }
 }

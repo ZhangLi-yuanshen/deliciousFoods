@@ -1,7 +1,11 @@
 package com.example.service;
 
+import com.example.entity.ClassifyInfo;
 import com.example.entity.SubClassifyInfo;
+import com.example.vo.SubClassifyInfoVo;
 import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 /**
  * 菜谱小类信息Service接口
@@ -52,4 +56,5 @@ public interface SubClassifyInfoService
      * @return 结果
      */
     public int deleteSubClassifyInfoById(Long id);
+    List<SubClassifyInfoVo> findAll();
 }

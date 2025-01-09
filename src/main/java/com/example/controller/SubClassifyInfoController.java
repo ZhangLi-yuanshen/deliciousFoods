@@ -2,12 +2,18 @@ package com.example.controller;
 
 
 import com.example.common.Result;
+import com.example.entity.ClassifyInfo;
 import com.example.entity.SubClassifyInfo;
+import com.example.service.ClassifyInfoService;
 import com.example.service.SubClassifyInfoService;
+import com.example.vo.SubClassifyInfoVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -23,6 +29,8 @@ public class SubClassifyInfoController
 
     @Autowired
     private SubClassifyInfoService subClassifyInfoService;
+    @Resource
+    private ClassifyInfoService classifyInfoService;
 
 
 
@@ -38,17 +46,20 @@ public class SubClassifyInfoController
         return Result.success(subClassifyInfoService.selectSubClassifyInfoList(pageNum, pageSize,subClassifyInfo));
 
     }
-
-
+    //计数
+    @GetMapping
+    public Result<List<SubClassifyInfoVo>> count() {
+        return Result.success(subClassifyInfoService.findAll());
+    }
 
     /**
      * 新增保存菜谱小类信息
      */
     @PostMapping()
     @ResponseBody
-    public Result addSave(@RequestBody SubClassifyInfo subClassifyInfo)
+    public Result addSave(@RequestBody SubClassifyInfo subClassifyInfoVo)
     {
-        return Result.success(subClassifyInfoService.insertSubClassifyInfo(subClassifyInfo));
+        return Result.success(subClassifyInfoService.insertSubClassifyInfo(subClassifyInfoVo));
     }
 
 

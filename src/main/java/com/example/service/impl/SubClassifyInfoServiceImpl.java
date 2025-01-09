@@ -3,8 +3,10 @@ package com.example.service.impl;
 import java.util.List;
 
 import com.example.dao.SubClassifyInfoDao;
+import com.example.entity.ClassifyInfo;
 import com.example.entity.SubClassifyInfo;
 import com.example.service.SubClassifyInfoService;
+import com.example.vo.SubClassifyInfoVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,4 +88,11 @@ public class SubClassifyInfoServiceImpl implements SubClassifyInfoService
     {
         return subClassifyInfoDao.deleteSubClassifyInfoById(id);
     }
+
+    @Override
+    public List<SubClassifyInfoVo> findAll() {
+        return subClassifyInfoDao.findAll();
+    }
+
+
 }

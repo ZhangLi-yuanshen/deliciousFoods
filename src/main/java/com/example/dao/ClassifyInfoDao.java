@@ -1,6 +1,9 @@
 package com.example.dao;
 
 import com.example.entity.ClassifyInfo;
+import com.example.vo.AdminInfoVo;
+import com.example.vo.ClassifyInfoVo;
+import com.example.vo.SubClassifyInfoVo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -49,5 +52,7 @@ public interface ClassifyInfoDao
      * @param id 菜谱大类信息主键
      */
     public int deleteClassifyInfoById(Long id);
+    Integer count();
+    List<ClassifyInfoVo> findAll();
 
 }

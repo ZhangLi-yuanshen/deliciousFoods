@@ -3,6 +3,8 @@ package com.example.controller;
 import com.example.common.Result;
 import com.example.entity.ClassifyInfo;
 import com.example.service.ClassifyInfoService;
+import com.example.vo.AdminInfoVo;
+import com.example.vo.ClassifyInfoVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -68,6 +70,11 @@ public class ClassifyInfoController
     public Result addSave(@RequestBody ClassifyInfo classifyInfo)
     {
         return Result.success(classifyInfoService.insertClassifyInfo(classifyInfo));
+    }
+//    计数
+    @GetMapping
+    public Result<List<ClassifyInfoVo>> count() {
+        return Result.success(classifyInfoService.findAll());
     }
 
 
