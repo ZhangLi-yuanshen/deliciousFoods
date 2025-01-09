@@ -52,7 +52,6 @@ public interface ClassifyInfoDao
      * @param id 菜谱大类信息主键
      */
     public int deleteClassifyInfoById(Long id);
-    Integer count();
     List<ClassifyInfoVo> findAll();
 
 }

@@ -1,25 +1,33 @@
 package com.example.controller;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.example.common.Result;
 import com.example.entity.ClassifyInfo;
 import com.example.service.ClassifyInfoService;
-import com.example.vo.AdminInfoVo;
 import com.example.vo.ClassifyInfoVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.UnsupportedEncodingException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -30,12 +38,10 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/classifyInfo")
-public class ClassifyInfoController
-{
+public class ClassifyInfoController {
 
-    @Autowired
+    @javax.annotation.Resource
     private ClassifyInfoService classifyInfoService;
-
 
 
     /**
@@ -72,8 +78,8 @@ public class ClassifyInfoController
         return Result.success(classifyInfoService.insertClassifyInfo(classifyInfo));
     }
 //    计数
-    @GetMapping
-    public Result<List<ClassifyInfoVo>> count() {
+    @RequestMapping
+    public Result<List<ClassifyInfoVo>> findAll() {
         return Result.success(classifyInfoService.findAll());
     }
 
@@ -149,4 +155,39 @@ public class ClassifyInfoController
         }
         return null;
     }
+//    @PostMapping("/upload")
+//    public Result upload(MultipartFile file) throws IOException {
+//
+//        List<ClassifyInfo> infoList = ExcelUtil.getReader(file.getInputStream()).readAll(ClassifyInfo.class);
+//        if (!CollectionUtil.isEmpty(infoList)) {
+//            // 处理一下空数据
+//            List<ClassifyInfo> resultList = infoList.stream().filter(x -> ObjectUtil.isNotEmpty(x.getName())).collect(Collectors.toList());
+//            for (ClassifyInfo info : resultList) {
+//                classifyInfoService.insertClassifyInfo(info);
+//            }
+//        }
+//        return Result.success();
+//    }
+//
+//    @GetMapping("/getExcelModel")
+//    public void getExcelModel(HttpServletResponse response) throws IOException {
+//        // 1. 生成excel
+//        Map<String, Object> row = new LinkedHashMap<>();
+//        row.put("name", "");
+//        row.put("descroiption", "");
+//
+//        List<Map<String, Object>> list = CollUtil.newArrayList(row);
+//
+//        // 2. 写excel
+//        ExcelWriter writer = ExcelUtil.getWriter(true);
+//        writer.write(list, true);
+//
+//        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
+//        response.setHeader("Content-Disposition","attachment;filename=classifyInfoModel.xlsx");
+//
+//        ServletOutputStream out = response.getOutputStream();
+//        writer.flush(out, true);
+//        writer.close();
+//        IoUtil.close(System.out);
+//    }
 }
