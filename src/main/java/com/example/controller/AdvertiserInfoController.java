@@ -44,7 +44,7 @@ public class AdvertiserInfoController {
     //修改内容
     @PutMapping
     public Result update(@RequestBody AdvertiserInfoVo advertiserInfo) {
-        advertiserInfoService.update(advertiserInfo);
+        advertiserInfoService.updateById(advertiserInfo);
         return Result.success();
     }
     //检查

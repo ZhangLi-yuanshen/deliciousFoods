@@ -4,11 +4,14 @@ package com.example.service;
 
 import com.example.dao.NewsInfoDao;
 import com.example.entity.NewsInfo;
+import com.example.vo.MessageInfoVo;
 import com.example.vo.NewsInfoVo;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -34,9 +37,11 @@ public class NewsInfoService {
 //        newsInfoDao.deleteByPrimaryKey(id);
 //    }
 //编辑
-    public void update(NewsInfoVo newsInfo) {
-        newsInfoDao.updateById(newsInfo);
-    }
+@PutMapping("/updateById")
+public String updateById(@RequestBody NewsInfoVo newsInfoVo) {
+    newsInfoDao.updateById(newsInfoVo);
+    return "更新成功";
+}
 //    public void update(NewsInfo newsInfo) {
 //        newsInfoDao.updateByPrimaryKeySelective(newsInfo);
 //    }

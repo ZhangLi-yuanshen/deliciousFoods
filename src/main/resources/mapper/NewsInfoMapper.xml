@@ -18,6 +18,10 @@
         </if>
         order by `news_info`.id
     </select>
+    <select id="findById" resultType="com.example.vo.NewsInfoVo">
+        select `news_info`.*'news_info'
+        where 'news_info'.id = #{id}
+    </select>
     <select id="count" resultType="Integer">
         select count(id) from `news_info`
     </select>
@@ -26,14 +30,13 @@
         delete from `news_info` where id = #{id}
     </delete>
 <!--    编辑-->
-    <update id="updateById">
-        update `news_info` set
-        <if test="name != null and name != ''">
-            `name` = #{name},
-    </if>
-        <if test="content != null and content != ''">
-            `content` = #{content},
-</if>
+    <update id="updateById" parameterType="com.example.vo.NewsInfoVo">
+        UPDATE news_info
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="content != null">content = #{content},</if>
+        </set>
+        WHERE id = #{id}
     </update>
 
     </mapper>

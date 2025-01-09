@@ -25,4 +25,15 @@
     <delete id="deleteById">
         delete from `advertiser_info` where id = #{id}
     </delete>
+<!--    编辑-->
+    <update id="updateById" parameterType="com.example.vo.AdvertiserInfoVo">
+        UPDATE advertiser_info
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="time != null">time = #{time},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
 </mapper>
