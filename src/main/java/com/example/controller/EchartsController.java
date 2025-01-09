@@ -61,36 +61,36 @@ public class EchartsController {
 
 				break;
 
-//			case "classifyInfo":
-//				List<ClassifyInfoVo> classifyInfoList = classifyInfoService.findAll();
-//				Map<String, Integer> classifyInfoMap = new HashMap<>(2);
-//				for (ClassifyInfo classifyInfo : classifyInfoList) {
-//					Integer value = classifyInfoMap.get(classifyInfo.getName());
-//					if (value != null && value != 0) {
-//						classifyInfoMap.put(classifyInfo.getName(), value + 1);
-//					} else {
-//						classifyInfoMap.put(classifyInfo.getName(), 1);
-//					}
-//				}
-//				getPieData("菜谱大类", list, classifyInfoMap);
-//				getBarData("菜谱大类", list, classifyInfoMap);
-//
-//				break;
-//			case "subClassifyInfo":
-//				List<SubClassifyInfoVo> subClassifyInfoList = subClassifyInfoService.findAll();
-//				Map<String, Integer> subClassifyInfoMap = new HashMap<>(2);
-//				for (SubClassifyInfo subClassifyInfo : subClassifyInfoList) {
-//					Integer value = subClassifyInfoMap.get(subClassifyInfo.getName());
-//					if (value != null && value != 0) {
-//						subClassifyInfoMap.put(subClassifyInfo.getName(), value + 1);
-//					} else {
-//						subClassifyInfoMap.put(subClassifyInfo.getName(), 1);
-//					}
-//				}
-//				getPieData("菜谱小类", list, subClassifyInfoMap);
-//				getBarData("菜谱小类", list, subClassifyInfoMap);
-//
-//				break;
+			case "classifyInfo":
+				List<ClassifyInfoVo> classifyInfoList = classifyInfoService.findAll();
+				Map<String, Integer> classifyInfoMap = new HashMap<>(2);
+				for (ClassifyInfo classifyInfo : classifyInfoList) {
+					Integer value = classifyInfoMap.get(classifyInfo.getName());
+					if (value != null && value != 0) {
+						classifyInfoMap.put(classifyInfo.getName(), value + 1);
+					} else {
+						classifyInfoMap.put(classifyInfo.getName(), 1);
+					}
+				}
+				getPieData("菜谱大类", list, classifyInfoMap);
+				getBarData("菜谱大类", list, classifyInfoMap);
+
+				break;
+			case "subClassifyInfo":
+				List<SubClassifyInfoVo> subClassifyInfoList = subClassifyInfoService.findAll();
+				Map<String, Integer> subClassifyInfoMap = new HashMap<>(2);
+				for (SubClassifyInfo subClassifyInfo : subClassifyInfoList) {
+					Integer value = subClassifyInfoMap.get(subClassifyInfo.getName());
+					if (value != null && value != 0) {
+						subClassifyInfoMap.put(subClassifyInfo.getName(), value + 1);
+					} else {
+						subClassifyInfoMap.put(subClassifyInfo.getName(), 1);
+					}
+				}
+				getPieData("菜谱小类", list, subClassifyInfoMap);
+				getBarData("菜谱小类", list, subClassifyInfoMap);
+
+				break;
 			case "collectInfo":
 				List<CollectInfoVo> collectInfoList = collectInfoService.findAll();
 				Map<String, Integer> collectInfoMap = new HashMap<>(2);
