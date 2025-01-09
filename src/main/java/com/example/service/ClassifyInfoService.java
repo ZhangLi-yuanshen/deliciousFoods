@@ -4,6 +4,7 @@ import com.example.entity.ClassifyInfo;
 import com.github.pagehelper.PageInfo;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * 菜谱大类信息Service接口
@@ -60,4 +61,6 @@ public interface ClassifyInfoService
      * @return void
      */
     void importExcelData(InputStream inputStream);
+
+    List<ClassifyInfo> all(ClassifyInfo classifyInfo);
 }

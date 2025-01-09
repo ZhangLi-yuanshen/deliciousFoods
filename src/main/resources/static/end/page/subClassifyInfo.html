@@ -307,10 +307,8 @@
 
         },
         methods: {
-
             loadTable(pageNum) {
-                let name = this.name === '' ? "all" : this.name;
-                axios.get("/subClassifyInfo/page/" + name + "?pageNum=" + pageNum).then(res => {
+                axios.get("/subClassifyInfo/page/all" + "?pageNum=" + pageNum + "&name=" + this.name).then(res => {
                     if (res.data.code === '0') {
                         this.objs = res.data.data.list;
                         this.pageInfo = res.data.data;

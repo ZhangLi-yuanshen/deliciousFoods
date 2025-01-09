@@ -2,16 +2,9 @@ package com.example.controller;
 
 import cn.hutool.json.JSONObject;
 import com.example.common.Result;
-import com.example.entity.AdminInfo;
-import com.example.entity.NewsInfo;
-import com.example.entity.UserInfo;
-import com.example.service.AdminInfoService;
-import com.example.service.NewsInfoService;
-import com.example.service.UserInfoService;
-import com.example.vo.AdminInfoVo;
-import com.example.vo.EchartsData;
-import com.example.vo.NewsInfoVo;
-import com.example.vo.UserInfoVo;
+import com.example.entity.*;
+import com.example.service.*;
+import com.example.vo.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,23 +17,23 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/echarts")
 public class EchartsController {
-
+    //饼图
 	@Resource
 	private AdminInfoService adminInfoService;
 	@Resource
 	private UserInfoService userInfoService;
-//	@Resource
-//	private ClassifyInfoService classifyInfoService;
-//	@Resource
-//	private SubClassifyInfoService subClassifyInfoService;
-//	@Resource
-//	private CollectInfoService collectInfoService;
-//	@Resource
-//	private PraiseInfoService praiseInfoService;
+	@Resource
+	private ClassifyInfoService classifyInfoService;
+	@Resource
+	private SubClassifyInfoService subClassifyInfoService;
+	@Resource
+	private CollectInfoService collectInfoService;
+	@Resource
+	private PraiseInfoService praiseInfoService;
 	@Resource
 	private NewsInfoService newsInfoService;
-//	@Resource
-//	private MessageInfoService messageInfoService;
+	@Resource
+	private MessageInfoService messageInfoService;
 
 
     @GetMapping("/get/{modelName}")
@@ -98,36 +91,36 @@ public class EchartsController {
 //				getBarData("菜谱小类", list, subClassifyInfoMap);
 //
 //				break;
-//			case "collectInfo":
-//				List<CollectInfoVo> collectInfoList = collectInfoService.findAll();
-//				Map<String, Integer> collectInfoMap = new HashMap<>(2);
-//				for (CollectInfo collectInfo : collectInfoList) {
-//					Integer value = collectInfoMap.get(collectInfo.getName());
-//					if (value != null && value != 0) {
-//						collectInfoMap.put(collectInfo.getName(), value + 1);
-//					} else {
-//						collectInfoMap.put(collectInfo.getName(), 1);
-//					}
-//				}
-//				getPieData("收藏", list, collectInfoMap);
-//				getBarData("收藏", list, collectInfoMap);
-//
-//				break;
-//			case "praiseInfo":
-//				List<PraiseInfoVo> praiseInfoList = praiseInfoService.findAll();
-//				Map<String, Integer> praiseInfoMap = new HashMap<>(2);
-//				for (PraiseInfo praiseInfo : praiseInfoList) {
-//					Integer value = praiseInfoMap.get(praiseInfo.getName());
-//					if (value != null && value != 0) {
-//						praiseInfoMap.put(praiseInfo.getName(), value + 1);
-//					} else {
-//						praiseInfoMap.put(praiseInfo.getName(), 1);
-//					}
-//				}
-//				getPieData("笔记点赞", list, praiseInfoMap);
-//				getBarData("笔记点赞", list, praiseInfoMap);
-//
-//				break;
+			case "collectInfo":
+				List<CollectInfoVo> collectInfoList = collectInfoService.findAll();
+				Map<String, Integer> collectInfoMap = new HashMap<>(2);
+				for (CollectInfo collectInfo : collectInfoList) {
+					Integer value = collectInfoMap.get(collectInfo.getName());
+					if (value != null && value != 0) {
+						collectInfoMap.put(collectInfo.getName(), value + 1);
+					} else {
+						collectInfoMap.put(collectInfo.getName(), 1);
+					}
+				}
+				getPieData("收藏", list, collectInfoMap);
+				getBarData("收藏", list, collectInfoMap);
+
+				break;
+			case "praiseInfo":
+				List<PraiseInfoVo> praiseInfoList = praiseInfoService.findAll();
+				Map<String, Integer> praiseInfoMap = new HashMap<>(2);
+				for (PraiseInfo praiseInfo : praiseInfoList) {
+					Integer value = praiseInfoMap.get(praiseInfo.getName());
+					if (value != null && value != 0) {
+						praiseInfoMap.put(praiseInfo.getName(), value + 1);
+					} else {
+						praiseInfoMap.put(praiseInfo.getName(), 1);
+					}
+				}
+				getPieData("笔记点赞", list, praiseInfoMap);
+				getBarData("笔记点赞", list, praiseInfoMap);
+
+				break;
 			case "newsInfo":
 				List<NewsInfoVo> newsInfoList = newsInfoService.findAll();
 				Map<String, Integer> newsInfoMap = new HashMap<>(2);
@@ -143,21 +136,21 @@ public class EchartsController {
 				getBarData("饮食资讯", list, newsInfoMap);
 
 				break;
-//			case "messageInfo":
-//				List<MessageInfoVo> messageInfoList = messageInfoService.findAll();
-//				Map<String, Integer> messageInfoMap = new HashMap<>(2);
-//				for (MessageInfo messageInfo : messageInfoList) {
-//					Integer value = messageInfoMap.get(messageInfo.getName());
-//					if (value != null && value != 0) {
-//						messageInfoMap.put(messageInfo.getName(), value + 1);
-//					} else {
-//						messageInfoMap.put(messageInfo.getName(), 1);
-//					}
-//				}
-//				getPieData("趣味答题", list, messageInfoMap);
-//				getBarData("趣味答题", list, messageInfoMap);
-//
-//				break;
+			case "messageInfo":
+				List<MessageInfoVo> messageInfoList = messageInfoService.findAll();
+				Map<String, Integer> messageInfoMap = new HashMap<>(2);
+				for (MessageInfo messageInfo : messageInfoList) {
+					Integer value = messageInfoMap.get(messageInfo.getName());
+					if (value != null && value != 0) {
+						messageInfoMap.put(messageInfo.getName(), value + 1);
+					} else {
+						messageInfoMap.put(messageInfo.getName(), 1);
+					}
+				}
+				getPieData("趣味答题", list, messageInfoMap);
+				getBarData("趣味答题", list, messageInfoMap);
+
+				break;
 
             default:
                 break;
