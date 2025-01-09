@@ -2,13 +2,10 @@ package com.example.controller;
 
 
 import com.example.common.Result;
-import com.example.entity.ClassifyInfo;
 import com.example.entity.SubClassifyInfo;
-import com.example.service.ClassifyInfoService;
 import com.example.service.SubClassifyInfoService;
 import com.example.vo.SubClassifyInfoVo;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,10 +24,8 @@ public class SubClassifyInfoController
 {
 
 
-    @Autowired
-    private SubClassifyInfoService subClassifyInfoService;
     @Resource
-    private ClassifyInfoService classifyInfoService;
+    private SubClassifyInfoService subClassifyInfoService;
 
 
 
@@ -48,7 +43,7 @@ public class SubClassifyInfoController
     }
     //计数
     @GetMapping
-    public Result<List<SubClassifyInfoVo>> count() {
+    public Result<List<SubClassifyInfoVo>> findAll() {
         return Result.success(subClassifyInfoService.findAll());
     }
 
