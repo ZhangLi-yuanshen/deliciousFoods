@@ -155,39 +155,4 @@ public class ClassifyInfoController {
         }
         return null;
     }
-//    @PostMapping("/upload")
-//    public Result upload(MultipartFile file) throws IOException {
-//
-//        List<ClassifyInfo> infoList = ExcelUtil.getReader(file.getInputStream()).readAll(ClassifyInfo.class);
-//        if (!CollectionUtil.isEmpty(infoList)) {
-//            // 处理一下空数据
-//            List<ClassifyInfo> resultList = infoList.stream().filter(x -> ObjectUtil.isNotEmpty(x.getName())).collect(Collectors.toList());
-//            for (ClassifyInfo info : resultList) {
-//                classifyInfoService.insertClassifyInfo(info);
-//            }
-//        }
-//        return Result.success();
-//    }
-//
-//    @GetMapping("/getExcelModel")
-//    public void getExcelModel(HttpServletResponse response) throws IOException {
-//        // 1. 生成excel
-//        Map<String, Object> row = new LinkedHashMap<>();
-//        row.put("name", "");
-//        row.put("descroiption", "");
-//
-//        List<Map<String, Object>> list = CollUtil.newArrayList(row);
-//
-//        // 2. 写excel
-//        ExcelWriter writer = ExcelUtil.getWriter(true);
-//        writer.write(list, true);
-//
-//        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
-//        response.setHeader("Content-Disposition","attachment;filename=classifyInfoModel.xlsx");
-//
-//        ServletOutputStream out = response.getOutputStream();
-//        writer.flush(out, true);
-//        writer.close();
-//        IoUtil.close(System.out);
-//    }
 }
