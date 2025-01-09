@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.CommentNotesInfoDao">
+<!--    <insert id="add">-->
+<!--        insert into `message_info` (`name`, `content`, `time`)-->
+<!--        values (#{name}, #{content}, #{time})-->
+<!--    </insert>-->
+
+    <!-- 自定义删除 SQL -->
+    <delete id="deleteById">
+        DELETE FROM comment_notes_info WHERE id = #{id}
+    </delete>
+
+    <select id="findByName" resultType="com.example.vo.CommentNotesInfoVo">
+        select `comment_notes_info`.*, `notes_info`.`name` as foreignName from `comment_notes_info`
+        left join `notes_info` on `comment_notes_info`.foreignId = `notes_info`.id
+        where 1=1
+        <if test="name != null and name != 'all' and name != ''">
+            and `comment_notes_info`.`content` like concat('%', #{name}, '%')
+        </if>
+        order by id
+    </select>
+
+
+    <select id="findVoById" resultType="com.example.vo.CommentNotesInfoVo">
+        select `comment_notes_info`.* from `comment_notes_info`
+
+        where `comment_notes_info`.id = #{id}
+    </select>
+    <select id="count" resultType="Integer">
+        select count(id) from `comment_notes_info`
+    </select>
+    <select id="checkRepeat" resultType="java.lang.Integer">
+        select count(id) from `comment_notes_info` where `comment_notes_info`.`name` = #{name}
+    </select>
+    <select id="findByForeignId" resultType="com.example.vo.CommentNotesInfoVo">
+        select `comment_notes_info`.*, `notes_info`.`name` as foreignName from `comment_notes_info`
+        left join `notes_info` on `comment_notes_info`.foreignId = `notes_info`.id
+        where 1=1
+        <if test="name != null and name != 'all' and name != ''">
+            and `comment_notes_info`.`content` like concat('%', #{name}, '%')
+        </if>
+        order by id
+    </select>
+    <update id="updateByMessage" parameterType="com.example.vo.CommentNotesInfoVo">
+        UPDATE comment_notes_info
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="time != null">time = #{time},</if>
+
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+</mapper>
