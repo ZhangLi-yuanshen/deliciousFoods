@@ -19,6 +19,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 
 /**
  * 菜谱大类信息Service业务层处理
@@ -29,7 +31,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClassifyInfoServiceImpl implements ClassifyInfoService
 {
-    @Autowired
+    @Resource
     private ClassifyInfoDao classifyInfoDao;
     /**
      * 查询菜谱大类信息

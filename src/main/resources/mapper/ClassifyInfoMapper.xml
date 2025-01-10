@@ -35,9 +35,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </if>
         order by `classify_info`.id
     </select>
-    <select id="count" resultType="java.lang.Integer">
-        select count(*) from classify_info
-    </select>
     <insert id="insertClassifyInfo" parameterType="ClassifyInfo" useGeneratedKeys="true" keyProperty="id">
         insert into classify_info
         <trim prefix="(" suffix=")" suffixOverrides=",">

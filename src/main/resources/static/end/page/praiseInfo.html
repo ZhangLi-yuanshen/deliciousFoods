@@ -70,12 +70,12 @@
 						<li v-if="authority.indexOf(4) != -1">
 							<a href="subClassifyInfo.html"><i class="fa fa-table"></i>菜谱小类信息</a>
 						</li>
-						<li v-if="authority.indexOf(5) != -1">
-							<a href="foodsMenuInfo.html"><i class="fa fa-table"></i>菜谱信息</a>
-						</li>
-						<li v-if="authority.indexOf(6) != -1">
-							<a href="foodsMaterialInfo.html"><i class="fa fa-table"></i>食材信息</a>
-						</li>
+<!--						<li v-if="authority.indexOf(5) != -1">-->
+<!--							<a href="foodsMenuInfo.html"><i class="fa fa-table"></i>菜谱信息</a>-->
+<!--						</li>-->
+<!--						<li v-if="authority.indexOf(6) != -1">-->
+<!--							<a href="foodsMaterialInfo.html"><i class="fa fa-table"></i>食材信息</a>-->
+<!--						</li>-->
 						<li v-if="authority.indexOf(7) != -1">
 							<a href="collectInfo.html"><i class="fa fa-table"></i>收藏信息</a>
 						</li>
@@ -320,18 +320,18 @@
                 });
             },
             init(o) {
-                // if (this.permission.indexOf(3) === -1) {
-                //     msg('warning', '你没有权限操作');
-                //     return;
-                // }
+                if (this.permission.indexOf(3) === -1) {
+                    msg('warning', '你没有权限操作');
+                    return;
+                }
                 this.entity = JSON.parse(JSON.stringify(o));
                 $('#mod').modal('show');
             },
             add() {
-                // if (this.permission.indexOf(1) === -1) {
-                //     msg('warning', '你没有权限操作');
-                //     return;
-                // }
+                if (this.permission.indexOf(1) === -1) {
+                    msg('warning', '你没有权限操作');
+                    return;
+                }
                 this.entity = {sex:'男'};
                 $('#mod').modal('show');
             },
@@ -365,10 +365,10 @@
                 }
             },
             del(id) {
-                // if (this.permission.indexOf(2) === -1) {
-                //     msg('warning', '你没有权限操作');
-                //     return;
-                // }
+                if (this.permission.indexOf(2) === -1) {
+                    msg('warning', '你没有权限操作');
+                    return;
+                }
                 let _this = this;
                 this.$confirm('确认删除？', '系统提示', {
                     confirmButtonText: '确定',
@@ -392,10 +392,10 @@
                 location.href = '/praiseInfo/getExcelModel';
             },
             clickUpload: function (e) {
-                // if (this.permission.indexOf(1) === -1) {
-                //     msg('warning', '你没有权限操作');
-                //     e.preventDefault();
-                // }
+                if (this.permission.indexOf(1) === -1) {
+                    msg('warning', '你没有权限操作');
+                    e.preventDefault();
+                }
             },
             upload: function () {
                 let files = this.$refs.file.files;

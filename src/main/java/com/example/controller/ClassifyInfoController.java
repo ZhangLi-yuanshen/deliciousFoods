@@ -1,25 +1,33 @@
 package com.example.controller;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.example.common.Result;
 import com.example.entity.ClassifyInfo;
 import com.example.service.ClassifyInfoService;
-import com.example.vo.AdminInfoVo;
 import com.example.vo.ClassifyInfoVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.UnsupportedEncodingException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -30,12 +38,10 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/classifyInfo")
-public class ClassifyInfoController
-{
+public class ClassifyInfoController {
 
-    @Autowired
+    @javax.annotation.Resource
     private ClassifyInfoService classifyInfoService;
-
 
 
     /**
@@ -72,8 +78,8 @@ public class ClassifyInfoController
         return Result.success(classifyInfoService.insertClassifyInfo(classifyInfo));
     }
 //    计数
-    @GetMapping
-    public Result<List<ClassifyInfoVo>> count() {
+    @RequestMapping
+    public Result<List<ClassifyInfoVo>> findAll() {
         return Result.success(classifyInfoService.findAll());
     }
 
