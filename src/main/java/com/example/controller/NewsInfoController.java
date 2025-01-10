@@ -55,7 +55,7 @@ public class NewsInfoController {
         newsInfoService.delete(id);
         return Result.success();
     }
-    //修改内容
+    //修改
     @PutMapping
     public Result update(@RequestBody NewsInfoVo newsInfo) {
         newsInfoService.updateById(newsInfo);

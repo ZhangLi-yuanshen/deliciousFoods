@@ -7,6 +7,7 @@
             and id != #{id}
         </if>
     </select>
+<!--    查全部-->
     <select id="findByNewsName" resultType="com.example.vo.NewsInfoVo">
         select * from `news_info` where `name` = #{newsname}
     </select>
@@ -18,10 +19,11 @@
         </if>
         order by `news_info`.id
     </select>
+    <!--    详情-->
     <select id="findById" resultType="com.example.vo.NewsInfoVo">
-        select `news_info`.*'news_info'
-        where 'news_info'.id = #{id}
+        select name, content from `news_info` where id = #{id}
     </select>
+<!--    计数-->
     <select id="count" resultType="Integer">
         select count(id) from `news_info`
     </select>
